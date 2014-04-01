@@ -4,4 +4,4 @@ pdf:
 	pdflatex cv.tex
 
 md:
-	awk -F '[{}]' -f cv.awk cv.tex | tee cv.md
+	awk -f cv.awk cv.tex | tee cv.md
