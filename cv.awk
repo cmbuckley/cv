@@ -1,6 +1,14 @@
+BEGIN {
+    print "---"
+    print "layout: default"
+    print "permalink: /cv/"
+    print "---"
+}
+
 {
     gsub(/\\&/, "\\&")
     gsub(/~/, " ")
+    gsub(/``|''/, "\"")
 }
 
 /\\title/ {
@@ -15,6 +23,7 @@
 
 /\\address/ {
     print $2
+    print ""
 }
 
 /begin.rSection/ {
@@ -23,6 +32,7 @@
 }
 
 /begin.rSubsection/ {
+    print ""
     if ($4) print "### " $4 ": " $6
     if ($8) {
         if ($10) {
