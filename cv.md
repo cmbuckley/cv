@@ -16,8 +16,13 @@ Mobile: 07763 868 005
 ### Sky Betting & Gaming: 2012--Present
 #### Senior Software Engineer, Leeds, West Yorks
 * Technical lead for Sky Poker in-house development team
-* Delivery & maintenance of Rich Internet Applications in a LAMP environment
+* Delivery & support of Rich Internet Applications in a LAMP environment
+* Technical liaison for third-party integration & software architecture
+* Close involvement with stakeholders to define product roadmap & strategic direction
+* Collaboration with Platform & Service Operations teams to ensure high availablility
+* Work with Solutions & Enterprise Architects to evolve company technical roadmap
 * Directed architecture of in-house microframeworks for company-wide reuse
+* Involvement with company recruitment process
 
 ## Professional Experience
 
@@ -27,10 +32,8 @@ Mobile: 07763 868 005
 * Project planning with stakeholders to define project scope
 * End-to-end accountability for projects from design to launch
 * Participation & leadership of daily stand-ups, planning meetings & sprint retrospectives
-* Contribution to evolution of agile delivery process
 * Active involvement with evolution of CI & code analysis tools
 * Design authority & development of standards for RESTful Web services
-* Contribution to business roadmap advising on new technologies for cost-efficient solutions
 * Involvement with team recruitment process (interviewing / technical tests)
 
 ### Vebra Solutions: 2007--2009
@@ -43,21 +46,19 @@ Mobile: 07763 868 005
 
 ## Core Skills
 
-* Agile development methodologies (Scrum, Kanban, XP)
-* Service-oriented architecture (REST & SOAP APIs)
-* Object-oriented design & architectural patterns
-* PHP5 (Zend Framework & standalone scripting)
-* Bash shell scripting (text processing using awk / sed)
-* (X)HTML & CSS standards compliance
-* Ajax, MooTools & other JavaScript development
-* Linux server management
-* MySQL database-driven applications & database management
+* Technical leadership & decision-making
+* Agile development & SDLC
+* Service-oriented architecture
+* PHP5 (Composer, Zend, Symfony)
+* JavaScript (Node.js, AMD)
+* Bash Shell scripting
+* Linux server management (Chef, Vagrant, standalone)
 
 ## Qualifications
 
 ### Practitioner in Enterprise & Solution Architecture: December 2013
 #### British Computer Society
-* Intermediate & Practitioner Certificates
+* AMBCS: Intermediate & Practitioner Certificates
 
 ### Master of Science (Research): 2006--2009
 #### Faculty of Science, University of Durham
@@ -71,8 +72,7 @@ Mobile: 07763 868 005
 
 ## Personal Interests
 
-* Computing & Web development
-* Programming (learning Python)
+* Programming (Contribution to many open-source projects)
 * Rock climbing
 * Snowboarding
 * Music (electric guitar)
