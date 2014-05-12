@@ -2,8 +2,7 @@ BEGIN {
     FS="[{}]"
 
     print "---"
-    print "layout: default"
-    print "permalink: /cv/"
+    print "layout: page"
     print "---"
 }
 
