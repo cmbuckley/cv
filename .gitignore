@@ -1,4 +1,4 @@
-*.log
-*.aux
-*.pdf
+_src/cv.log
+_src/cv.aux
+cv.pdf
 cv.md
