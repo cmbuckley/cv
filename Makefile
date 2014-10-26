@@ -2,14 +2,22 @@ SRC = _src
 CV_TEX := $(SRC)/cv.tex
 GIT_REMOTE := $(shell git config remote.origin.url)
 
+.PHONY: pdf md travis clean spell
+
 default: pdf md
 
-pdf:
+pdf: $(CV_TEX)
 	pdflatex -output-directory $(SRC) $(CV_TEX)
 	mv $(SRC)/cv.pdf .
 
-md:
+md: $(CV_TEX)
 	awk -f $(SRC)/cv.awk $(CV_TEX) > cv.md
+
+clean:
+	rm -f cv.* $(SRC)/cv.log $(SRC)/cv.aux
+
+spell: md
+	aspell list < cv.md | LANG=C sort -u
 
 travis: default
 ifeq ($(TRAVIS_PULL_REQUEST), true)
