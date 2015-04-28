@@ -2,9 +2,14 @@ SRC = _src
 CV_TEX := $(SRC)/cv.tex
 GIT_REMOTE := $(shell git config remote.origin.url)
 
-.PHONY: pdf md travis clean spell
+.PHONY: pdf md travis clean spell check
 
 default: pdf md
+
+check:
+ifeq (, $(shell which aspell))
+	$(error "Spell check requires aspell")
+endif
 
 pdf: $(CV_TEX)
 	pdflatex -output-directory $(SRC) $(CV_TEX)
@@ -16,7 +21,7 @@ md: $(CV_TEX)
 clean:
 	rm -f cv.* $(SRC)/cv.log $(SRC)/cv.aux
 
-spell: md
+spell: check md
 	aspell list < cv.md | LANG=C sort -u
 
 travis: default
