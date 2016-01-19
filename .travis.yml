@@ -1,12 +1,15 @@
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install texlive-latex-base
+- sudo apt-get update
+- sudo apt-get install texlive-latex-base
 
 script: make travis
 
 env:
-  - secure: "bVJZo4Xsg3jhcdVKc57ktY4zWYfnZFRtVNbdkkN6kT29V2C9gHBPb8LsfUBkX+7Li34yG2G9lhTcpmJWz0VdHSPN444+fhUb5TWbYcN4oqpgI4xST2LnFbsLg5mPOvZhy2eF5mtPi8ipkQBdb93InOlVHct5TeC+QLLVRoEHkKA="
+  global:
+  - GIT_NAME: Travis CI
+  - GIT_EMAIL: travis@travis-ci.org
+  - secure: cjEKuQoNia4MKtJeH3hyrmj3vQIuXsR8rWU9AQhclEcInMCj066qGCaepKNXlAPmdqTzSd+YBwdR1siXOpW7viywK8AlFRxbFlaZsWj6iN8DW+5pvdkQwrvni7mwUO6OCWxI4Uw60EVtPW2rOuwffH5A4tzNioZiytNL1rdfgqo=
 
 branches:
   only:
-    - master
+  - master

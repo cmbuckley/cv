@@ -34,5 +34,5 @@ else
 	git commit -m 'Updated GitHub Pages'
 
 #	hiding command & output due to GIT_TOKEN
-	@git push -fq "https://$(GIT_TOKEN)@$(GIT_REMOTE:git://%=%)" HEAD:gh-pages >/dev/null 2>&1
+	@git push -fq "https://$(GIT_TOKEN)@$(word 2,$(subst ://, ,$(GIT_REMOTE)))" HEAD:gh-pages >/dev/null 2>&1
 endif
