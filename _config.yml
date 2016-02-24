@@ -1,3 +1,2 @@
-markdown: rdiscount
-rdiscount:
-    extensions: [smart]
+markdown: kramdown
+host: 0.0.0.0
