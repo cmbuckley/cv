@@ -34,13 +34,20 @@ BEGIN {
 
 /begin.rSubsection/ {
     print ""
-    if ($4) print "### " $4 ": " $6
+
+    if ($4) {
+        print "### " $4 ": " $6
+        print ""
+    }
+
     if ($8) {
         if ($10) {
             print "#### " $8 ", " $10
         } else {
             print "#### " $8
         }
+
+        print ""
     }
 }
 
