@@ -5,6 +5,7 @@ addons:
   apt:
     packages:
     - texlive-latex-base
+    - texlive-latex-recommended
 
 script: make travis
 
