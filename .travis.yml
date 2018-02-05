@@ -1,20 +1,16 @@
 rvm:
 - 2.1.7
-
 addons:
   apt:
     packages:
     - texlive-latex-base
     - texlive-latex-recommended
-
 script: make travis
-
 env:
   global:
   - GIT_NAME: Travis CI
   - GIT_EMAIL: travis@travis-ci.org
-  - secure: cjEKuQoNia4MKtJeH3hyrmj3vQIuXsR8rWU9AQhclEcInMCj066qGCaepKNXlAPmdqTzSd+YBwdR1siXOpW7viywK8AlFRxbFlaZsWj6iN8DW+5pvdkQwrvni7mwUO6OCWxI4Uw60EVtPW2rOuwffH5A4tzNioZiytNL1rdfgqo=
-
+  - secure: NQGsKwkFNOj42i7AhNQOpCwnK+uiaQpguz1d8AecTgYfFjzw8yDX0kJ5c+B+Fb8UQ25u6uKzwfNJIGj/pvF4Qio24kyk0+kUReILykIQuEuPu5MKmeHDVi6SjVZlKV6k8WR9+kUbtm5EbanAxQwydyL6dgQE4r6X0BhASIHmh7g=
 branches:
   only:
   - master
