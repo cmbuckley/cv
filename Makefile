@@ -1,5 +1,6 @@
 SRC = _src
 CV_TEX := $(SRC)/cv.tex
+CV_MD := index.md
 GIT_REMOTE := $(shell git config remote.origin.url)
 
 .PHONY: pdf md travis clean spell check
@@ -16,13 +17,13 @@ pdf: $(CV_TEX)
 	mv $(SRC)/cv.pdf .
 
 md: $(CV_TEX)
-	awk -f $(SRC)/cv.awk $(CV_TEX) > cv.md
+	awk -f $(SRC)/cv.awk $(CV_TEX) > $(CV_MD)
 
 clean:
-	rm -f cv.* $(SRC)/cv.log $(SRC)/cv.aux
+	rm -f $(CV_MD) cv.* $(SRC)/cv.log $(SRC)/cv.aux
 
 spell: check md
-	aspell list < cv.md | LANG=C sort -u
+	aspell list < $(CV_MD) | LANG=C sort -u
 
 travis: default
 ifeq ($(TRAVIS_PULL_REQUEST), true)
@@ -30,9 +31,9 @@ ifeq ($(TRAVIS_PULL_REQUEST), true)
 else
 	git config user.name $(GIT_NAME)
 	git config user.email $(GIT_EMAIL)
-	git add -f cv.pdf cv.md
+	git add -f cv.pdf $(CV_MD)
 	git commit -m 'Updated GitHub Pages'
 
 #	hiding command & output due to GIT_TOKEN
-	@git push -fq "https://$(GIT_TOKEN)@$(word 2,$(subst ://, ,$(GIT_REMOTE)))" HEAD:gh-pages >/dev/null 2>&1
+	git push -fq "https://$(GIT_TOKEN)@$(word 2,$(subst ://, ,$(GIT_REMOTE)))" HEAD:gh-pages >/dev/null 2>&1
 endif
