@@ -12,6 +12,12 @@ BEGIN {
     gsub(/``|''/, "\"")
 }
 
+/\\begin\{document\}/ {
+    print "## Alternative Formats"
+    print ""
+    print "* [PDF](cv.pdf)"
+}
+
 /\\title/ {
     print "# " $2
     print ""
