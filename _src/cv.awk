@@ -61,3 +61,14 @@ BEGIN {
     gsub(/\\item /, "")
     print "* " $1
 }
+
+/Summary/ {
+    summary = 1
+    next
+}
+
+/rSection/ {
+    summary = 0
+}
+
+summary # print summary if we're in that section
