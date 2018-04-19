@@ -37,3 +37,8 @@ else
 #	hiding command & output due to GIT_TOKEN
 	git push -fq "https://$(GIT_TOKEN)@$(word 2,$(subst ://, ,$(GIT_REMOTE)))" HEAD:gh-pages >/dev/null 2>&1
 endif
+
+purge:
+	curl -X DELETE "https://api.cloudflare.com/client/v4/zones/$(CLOUDFLARE_ZONE)/purge_cache" \
+		-H "X-Auth-Email: $(CLOUDFLARE_EMAIL)" -H "X-Auth-Key: $(CLOUDFLARE_TOKEN)" \
+		-H "Content-Type: application/json" --data '{"purge_everything":true}'
