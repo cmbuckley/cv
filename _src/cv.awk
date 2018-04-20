@@ -12,7 +12,7 @@ BEGIN {
     gsub(/``|''/, "\"")
 }
 
-/\\begin\{document\}/ {
+/begin.document/ {
     print "## Alternative Formats"
     print ""
     print "* [PDF](cv.pdf)"
@@ -33,12 +33,12 @@ BEGIN {
     print ""
 }
 
-/begin.rSection/ {
+/\\section/ {
     print ""
-    print "## " $4
+    print "## " $2
 }
 
-/begin.rSubsection/ {
+/begin.experience/ {
     print ""
 
     if ($4) {
@@ -67,7 +67,7 @@ BEGIN {
     next
 }
 
-/rSection/ {
+/^%/ {
     summary = 0
 }
 
