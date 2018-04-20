@@ -15,6 +15,8 @@
 \usepackage{array} % Required for boldface (\bf and \bfseries) tabular columns
 \usepackage{ifthen} % Required for ifthenelse statements
 \usepackage{titlesec} % Required for title styling
+\usepackage{enumitem} % For multi-line definition lists
+\usepackage{calc} % \widthof
 \RequirePackage[pdfusetitle]{hyperref}
 \usepackage{bookmark}
 
@@ -101,14 +103,9 @@
  \ifthenelse{\equal{#3}{}}{}{ % If the third argument is not specified, don't print the job title and location line
   \\
   {\em #3} \hfill {\em #4} % Italic company name and location
-  \\[-1.5ex]
-  }
-  \begin{list}{$\cdot$}{\leftmargin=1em} % \cdot used for bullets, no indentation
-   \itemsep -0.5em \vspace{-0.5em} % Compress items in list together for aesthetics
-  }{
-  \end{list}
-  \vspace{0.5em} % Some space after the list of bullet points
-  \pagebreak[3] % This is a very nice place to break a page
+  \\[1.5ex]
+  }}{
+  \\
 }
 
 % The below commands define the whitespace after certain things in the document - they can be \smallskip, \medskip or \bigskip
