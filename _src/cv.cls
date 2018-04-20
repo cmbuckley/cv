@@ -86,7 +86,7 @@
 %----------------------------------------------------------------------------------------
 
 \titlespacing*{\section}
-    {0pt}{2ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+    {0pt}{2ex plus 1ex minus .2ex}{1ex plus .2ex}
 
 \titleformat{\section}
   {\Large\bfseries}{}{0em}{\MakeUppercase}[{\vskip5pt\titlerule[0.4pt]}]
@@ -100,7 +100,8 @@
  \ifthenelse{\equal{#3}{}}{}{ % If the third argument is not specified, don't print the job title and location line
   \\
   {\em #3} \hfill {\em #4} % Italic job title and location
-  }\smallskip
+  \\[-1.5ex]
+  }
   \begin{list}{$\cdot$}{\leftmargin=1em} % \cdot used for bullets, no indentation
    \itemsep -0.5em \vspace{-0.5em} % Compress items in list together for aesthetics
   }{
