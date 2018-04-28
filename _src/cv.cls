@@ -8,7 +8,6 @@
 %----------------------------------------------------------------------------------------
 
 \ProvidesClass{cv}[2013/12/12 Curriculum Vitae class]
-
 \LoadClass[11pt,letterpaper]{article} % Font size and paper type
 
 \usepackage[left=0.75in,top=0.6in,right=0.75in,bottom=0.6in]{geometry} % Document margins
@@ -16,6 +15,7 @@
 \usepackage{array} % Required for boldface (\bf and \bfseries) tabular columns
 \usepackage{ifthen} % Required for ifthenelse statements
 \usepackage{titlesec} % Required for title styling
+\usepackage[pdfusetitle]{hyperref}
 
 \pagestyle{empty} % Suppress page numbers
 

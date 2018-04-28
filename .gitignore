@@ -1,5 +1,7 @@
-_src/cv.log
 _src/cv.aux
+_src/cv.log
+_src/cv.out
+_src/cv.toc
 _site
 cv.pdf
 index.md
