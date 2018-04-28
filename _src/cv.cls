@@ -16,6 +16,7 @@
 \usepackage{ifthen} % Required for ifthenelse statements
 \usepackage{titlesec} % Required for title styling
 \usepackage[pdfusetitle]{hyperref}
+\usepackage{bookmark}
 
 \pagestyle{empty} % Suppress page numbers
 

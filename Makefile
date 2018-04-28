@@ -15,7 +15,6 @@ endif
 
 pdf: $(CV_TEX)
 	pdflatex -output-directory $(SRC) $(CV_TEX)
-	pdflatex -output-directory $(SRC) $(CV_TEX)
 	mv $(SRC)/cv.pdf .
 
 md: $(CV_TEX)
