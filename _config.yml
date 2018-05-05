@@ -3,7 +3,7 @@ description: Chris Buckley's Personal Web Site
 host: 0.0.0.0
 
 url: https://cmbuckley.co.uk
-baseurl: ""
+baseurl: "/cv"
 
 markdown: kramdown
 highlighter: rouge
