@@ -3,6 +3,7 @@ BEGIN {
 
     print "---"
     print "layout: page"
+    print "title: Curriculum Vitae"
     print "---"
 }
 
@@ -13,18 +14,13 @@ BEGIN {
 }
 
 /begin.document/ {
-    print "## Alternative Formats"
+    print "### Alternative Formats"
     print ""
-    print "* [PDF](cv.pdf)"
-}
-
-/\\title/ {
-    print "# " $2
-    print ""
+    print "* [PDF](/cv/cv.pdf)"
 }
 
 /\\name/ {
-    print "## " $2
+    print "### " $2
     print ""
 }
 
@@ -35,22 +31,22 @@ BEGIN {
 
 /\\section/ {
     print ""
-    print "## " $2
+    print "### " $2
 }
 
 /begin.experience/ {
     print ""
 
     if ($4) {
-        print "### " $4 ": " $6
+        print "#### " $4 ": " $6
         print ""
     }
 
     if ($8) {
         if ($10) {
-            print "#### " $8 ", " $10
+            print "##### " $8 ", " $10
         } else {
-            print "#### " $8
+            print "##### " $8
         }
 
         print ""
