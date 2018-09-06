@@ -21,5 +21,3 @@ travis encrypt CLOUDFLARE_ZONE=zone CLOUDFLARE_TOKEN=token
     * https://developer.linkedin.com/docs/guide/v2/people/profile-edit-api
 * https://stackoverflow.com/users/283078/cmbuckley?tab=profile
     * Manual
-* https://github.com/cmbuckley
-    * https://developer.github.com/v3/users/#update-the-authenticated-user

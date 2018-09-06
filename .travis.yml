@@ -7,7 +7,7 @@ addons:
     - texlive-latex-recommended
     - texlive-latex-extra
 script: make travis
-after_success: make purge
+after_success: make travis_success
 env:
   global:
   # GitHub Pages

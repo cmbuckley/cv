@@ -4,7 +4,11 @@ CV_TEX := $(SRC)/cv.tex
 CV_MD := index.md
 GIT_REMOTE := $(shell git config remote.origin.url)
 
-.PHONY: pdf md travis clean spell check
+# Position and location for current role
+ROLE_POS := $(shell awk -v col=8 -f $(SRC)/role.awk $(CV_TEX))
+ROLE_LOC := $(shell awk -v col=4 -f $(SRC)/role.awk $(CV_TEX))
+
+.PHONY: pdf md travis clean spell check role travis_success
 
 default: pdf md
 
@@ -26,6 +30,11 @@ clean:
 spell: check md
 	aspell list < $(CV_MD) | LANG=C sort -u
 
+role:
+	curl -X PATCH "https://api.github.com/user" \
+		-u $(GIT_TOKEN) \
+		-d '{"bio":"$(ROLE_POS) at $(ROLE_LOC)"}'
+
 travis: default
 ifeq ($(TRAVIS_PULL_REQUEST), true)
 	@echo 'Travis target not executed for pull requests.'
@@ -43,3 +52,5 @@ purge:
 	curl -X DELETE "https://api.cloudflare.com/client/v4/zones/$(CLOUDFLARE_ZONE)/purge_cache" \
 		-H "X-Auth-Email: $(CLOUDFLARE_EMAIL)" -H "X-Auth-Key: $(CLOUDFLARE_TOKEN)" \
 		-H "Content-Type: application/json" --data '{"purge_everything":true}'
+
+travis_success: role purge
