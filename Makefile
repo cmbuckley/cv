@@ -3,8 +3,10 @@ SRC = _src
 CV_TEX := $(SRC)/cv.tex
 CV_MD := index.md
 GIT_REMOTE := $(shell git config remote.origin.url)
+GH_API := 'https://api.github.com/user'
 
 # Position and location for current role
+ROLE_CUR := $(shell curl -su $(GIT_TOKEN) $(GH_API) | grep bio | cut -d '"' -f4)
 ROLE_POS := $(shell awk -v col=8 -f $(SRC)/role.awk $(CV_TEX))
 ROLE_LOC := $(shell awk -v col=4 -f $(SRC)/role.awk $(CV_TEX))
 
@@ -31,9 +33,9 @@ spell: check md
 	aspell list < $(CV_MD) | LANG=C sort -u
 
 role:
-	curl -X PATCH "https://api.github.com/user" \
-		-u $(GIT_TOKEN) \
-		-d '{"bio":"$(ROLE_POS) at $(ROLE_LOC)"}'
+ifneq ("$(ROLE_CUR)", "$(ROLE_POS) at $(ROLE_LOC)")
+	curl -X PATCH $(GH_API) -u $(GIT_TOKEN) -d '{"bio":"$(ROLE_POS) at $(ROLE_LOC)"}'
+endif
 
 travis: default
 ifeq ($(TRAVIS_PULL_REQUEST), true)
