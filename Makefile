@@ -38,7 +38,9 @@ spell: check md
 	aspell list < $(CV_MD) | LANG=C sort -u
 
 role: clean
-ifneq ("$(ROLE_CUR)", "$(ROLE_POS) at $(ROLE_LOC)")
+ifeq ("$(ROLE_CUR)", "$(ROLE_POS) at $(ROLE_LOC)")
+	@echo 'Role not changed'
+else
 	curl -X PATCH $(GH_API)/user -u $(GIT_TOKEN) -d '{"bio":"$(ROLE_POS) at $(ROLE_LOC)"}'
 
 	git clone https://github.com/$(SITE_REPO) $(SITE_DIR)
