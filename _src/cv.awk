@@ -17,6 +17,7 @@ BEGIN {
 }
 
 /begin.document/ {
+    print ""
     print "## Alternative Formats"
     print ""
     print "* [PDF](/cv/cv.pdf)"
@@ -28,8 +29,7 @@ BEGIN {
 }
 
 /\\address/ {
-    print $2
-    print ""
+    print "* " $2
 }
 
 /\\section/ {
