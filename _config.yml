@@ -10,6 +10,12 @@ remote_theme: "cmbuckley/cmbuckley.github.io"
 markdown: kramdown
 highlighter: rouge
 
+defaults:
+  - scope:
+      path: assets
+    values:
+      exclude: true
+
 exclude:
   - Gemfile
   - Gemfile.lock
