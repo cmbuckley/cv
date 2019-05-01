@@ -10,6 +10,12 @@ remote_theme: "cmbuckley/cmbuckley.github.io"
 markdown: kramdown
 highlighter: rouge
 
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - Makefile
+  - README.md
+
 navigation:
  - title: Home
    url: /
