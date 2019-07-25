@@ -29,7 +29,8 @@ pdf: $(CV_TEX)
 	mv $(SRC)/cv.pdf .
 
 md: $(CV_TEX)
-	awk -f $(SRC)/cv.awk $(CV_TEX) > $(CV_MD)
+	cp $(SRC)/cv.md $(CV_MD)
+	awk -f $(SRC)/cv.awk $(CV_TEX) >> $(CV_MD)
 
 clean:
 	rm -rf $(CV_MD) cv.* $(SRC)/cv.{aux,log,out,toc} $(SITE_DIR)

@@ -1,13 +1,5 @@
 BEGIN {
     FS="[{}]"
-
-    print "---"
-    print "layout: page"
-    print "title: Curriculum Vitae"
-    print "description: Chris Buckley's CV"
-    print "og_type: website"
-    print "class: cv"
-    print "---"
 }
 
 {
