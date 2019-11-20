@@ -12,7 +12,7 @@ BEGIN {
     print ""
     print "## Alternative Formats"
     print ""
-    print "* [PDF](/cv/cv.pdf)"
+    print "* [PDF](/cv/cv.pdf){:rel=\"alternate\" type=\"text/pdf\"}"
 }
 
 /\\name/ {
