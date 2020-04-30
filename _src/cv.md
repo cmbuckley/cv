@@ -6,6 +6,7 @@ og_type: website
 class: cv
 image:
   meta:
-    src: headshot.jpg
+    main_repo: true
+    src: /assets/img/headshot.jpg
     alt: Photo of Chris Buckley
 ---
