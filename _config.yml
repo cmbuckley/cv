@@ -5,10 +5,15 @@ host: 0.0.0.0
 url: https://cmbuckley.co.uk
 baseurl: "/cv"
 
+repository: cmbuckley/cv
 remote_theme: "cmbuckley/cmbuckley.github.io"
 
 markdown: kramdown
 highlighter: rouge
+
+plugins:
+  - jekyll-github-metadata
+  - jekyll-remote-theme
 
 defaults:
   - scope:
