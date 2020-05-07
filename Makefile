@@ -30,7 +30,9 @@ pdf: $(CV_TEX)
 
 md: $(CV_TEX)
 	cp $(SRC)/cv.md $(CV_MD)
+	sed -i'.bak' "s/description:.*$$/&$(shell awk -f $(SRC)/summary.awk $(CV_TEX))/" $(CV_MD)
 	awk -f $(SRC)/cv.awk $(CV_TEX) >> $(CV_MD)
+	rm $(CV_MD).bak
 
 clean:
 	rm -rf $(CV_MD) cv.* $(SRC)/cv.{aux,log,out,toc} $(SITE_DIR)
