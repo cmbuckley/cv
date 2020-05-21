@@ -6,3 +6,4 @@ _site
 cv.pdf
 index.md
 Gemfile.lock
+.sass-cache
