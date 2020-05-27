@@ -1,5 +1,5 @@
 rvm:
-- 2.1.7
+- 2.5.8
 addons:
   apt:
     packages:
