@@ -8,14 +8,14 @@
 %----------------------------------------------------------------------------------------
 
 \ProvidesClass{cv}[2013/12/12 Curriculum Vitae class]
-\LoadClass[11pt,letterpaper]{article} % Font size and paper type
+\LoadClass[11pt,a4paper]{article} % Font size and paper type
 
 \usepackage[left=0.75in,top=0.6in,right=0.75in,bottom=0.6in]{geometry} % Document margins
 \usepackage[parfill]{parskip} % Remove paragraph indentation
 \usepackage{array} % Required for boldface (\bf and \bfseries) tabular columns
 \usepackage{ifthen} % Required for ifthenelse statements
 \usepackage{titlesec} % Required for title styling
-\usepackage[pdfusetitle]{hyperref}
+\RequirePackage[pdfusetitle]{hyperref}
 \usepackage{bookmark}
 
 \pagestyle{empty} % Suppress page numbers
