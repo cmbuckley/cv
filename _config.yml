@@ -26,3 +26,4 @@ exclude:
   - Gemfile.lock
   - Makefile
   - README.md
+  - vendor
