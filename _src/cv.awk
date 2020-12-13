@@ -16,12 +16,14 @@ BEGIN {
 }
 
 /\\name/ {
-    print "## " $2
-    print ""
+    print "Name:"
+    print ":  " $2
 }
 
 /\\address/ {
-    print "* " $2
+    print ""
+    gsub(/: /, ":\n:  ", $2)
+    print $2
 }
 
 /\\section/ {
