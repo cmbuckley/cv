@@ -97,10 +97,10 @@
 %----------------------------------------------------------------------------------------
 
 \newenvironment{experience}[4]{ % 4 input arguments - company name, year(s) employed, job title and location
- {\bf #1} \hfill {#2} % Bold company name and date on the right
+ {\bf #1} \hfill {#2} % Bold job title, and date on the right
  \ifthenelse{\equal{#3}{}}{}{ % If the third argument is not specified, don't print the job title and location line
   \\
-  {\em #3} \hfill {\em #4} % Italic job title and location
+  {\em #3} \hfill {\em #4} % Italic company name and location
   \\[-1.5ex]
   }
   \begin{list}{$\cdot$}{\leftmargin=1em} % \cdot used for bullets, no indentation
@@ -108,6 +108,7 @@
   }{
   \end{list}
   \vspace{0.5em} % Some space after the list of bullet points
+  \pagebreak[3] % This is a very nice place to break a page
 }
 
 % The below commands define the whitespace after certain things in the document - they can be \smallskip, \medskip or \bigskip
