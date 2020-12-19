@@ -1,0 +1,63 @@
+---
+---
+@import "config";
+@import "custom";
+
+.cv {
+    .page__title {
+        margin-bottom: 0;
+    }
+
+    h3 {
+        margin-bottom: 0.5rem;
+    }
+
+    .personal {
+        text-align: center;
+
+        dt, dd {
+            display: inline;
+        }
+
+        dt:first-of-type {
+            @extend .sr-only;
+        }
+
+        dt:before {
+            content: "";
+            display: block;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        ul {
+            padding-left: 25px;
+        }
+    }
+
+    .meta {
+        margin-top: 0;
+
+        dt {
+            @extend .sr-only;
+        }
+
+        dd {
+            margin-bottom: 0;
+        }
+
+        dd:first-of-type {
+            font-weight: bold;
+        }
+    }
+
+    @media only screen and (min-width: 600px) {
+        .meta dd {
+            display: inline;
+
+            & ~ dd:before {
+                content: " | ";
+            }
+        }
+    }
+}

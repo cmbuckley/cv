@@ -4,6 +4,8 @@ title: Curriculum Vitae
 description: Chris Buckley's CV.
 og_type: website
 class: cv
+style:
+  - /assets/cv.css
 image:
   meta:
     main_repo: true

@@ -1,5 +1,6 @@
 BEGIN {
     FS="[{}]"
+    org="Company"
 }
 
 {
@@ -24,6 +25,7 @@ BEGIN {
     print ""
     gsub(/: /, ":\n:  ", $2)
     print $2
+    print "{:.personal}"
 }
 
 /\\section/ {
@@ -31,21 +33,30 @@ BEGIN {
     print "## " $2
 }
 
+/section.Qualifications/ {
+    org="Insitution"
+}
+
 /begin.experience/ {
     print ""
 
     if ($4) {
-        print "### " $4 ": " $6
-        print ""
-    }
+        print "### " $4
 
-    if ($8) {
-        if ($10) {
-            print "#### " $8 ", " $10
-        } else {
-            print "#### " $8
+        print org
+        print ":  " $8 ($10 && org == "Insitution" ? ", " $10 : "")
+
+        if ($10 && org == "Company") {
+            print ""
+            print "Location"
+            print ":  " $10
         }
 
+        print ""
+        print "Dates"
+        print ":  " $6
+
+        print "{:.meta}"
         print ""
     }
 }
