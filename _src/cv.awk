@@ -11,9 +11,8 @@ BEGIN {
 
 /begin.document/ {
     print ""
-    print "## Alternative Formats"
-    print ""
-    print "* [PDF](/cv/cv.pdf){:rel=\"alternate\" type=\"text/pdf\"}"
+    print "[Download as PDF](/cv/cv.pdf){:rel=\"alternate\" type=\"text/pdf\"}"
+    print "{:.download}"
 }
 
 /\\name/ {
