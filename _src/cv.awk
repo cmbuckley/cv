@@ -33,7 +33,7 @@ BEGIN {
 }
 
 /section.Qualifications/ {
-    org="Insitution"
+    org="Institution"
 }
 
 /begin.experience/ {
@@ -43,7 +43,7 @@ BEGIN {
         print "### " $4
 
         print org
-        print ":  " $8 ($10 && org == "Insitution" ? ", " $10 : "")
+        print ":  " $8 ($10 && org == "Institution" ? ", " $10 : "")
 
         if ($10 && org == "Company") {
             print ""
