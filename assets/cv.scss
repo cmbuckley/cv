@@ -1,7 +1,6 @@
 ---
 ---
-@import "config";
-@import "custom";
+@import "partials/mixins";
 
 .cv {
     .page__title {
@@ -21,7 +20,7 @@
         }
 
         dt:first-of-type {
-            @extend .sr-only;
+            @extend %sr-only;
         }
 
         dt:before {
@@ -44,7 +43,7 @@
         margin-top: 0;
 
         dt {
-            @extend .sr-only;
+            @extend %sr-only;
         }
 
         dd {
