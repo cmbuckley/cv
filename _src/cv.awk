@@ -16,15 +16,15 @@ BEGIN {
 }
 
 /\\name/ {
-    print "Name:"
-    print ":  " $2
+    print "<dl class=\"personal\">"
+    print "  <div><dt class=\"sr-only\">Name:</dt>"
+    print "  <dd>" $2 "</dd></div>"
 }
 
 /\\address/ {
-    print ""
-    gsub(/: /, ":\n:  ", $2)
-    print $2
-    print "{:.personal}"
+    gsub(/: /, ":</dt> <dd>", $2)
+    print "  <div><dt>" $2 "</dd></div>"
+    print "</dl>"
 }
 
 /\\section/ {

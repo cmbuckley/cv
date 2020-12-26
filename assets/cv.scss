@@ -18,15 +18,6 @@
         dt, dd {
             display: inline;
         }
-
-        dt:first-of-type {
-            @extend %sr-only;
-        }
-
-        dt:before {
-            content: "";
-            display: block;
-        }
     }
 
     .download {
