@@ -15,6 +15,10 @@
         text-align: center;
         margin-bottom: 0;
 
+        .name {
+            font-weight: bold;
+        }
+
         dt, dd {
             display: inline;
             font-weight: normal;

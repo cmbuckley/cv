@@ -18,7 +18,7 @@ BEGIN {
 /\\name/ {
     print "<dl class=\"personal\">"
     print "  <div><dt class=\"sr-only\">Name:</dt>"
-    print "  <dd>" $2 "</dd></div>"
+    print "  <dd class=\"name\">" $2 "</dd></div>"
 }
 
 /\\address/ {
