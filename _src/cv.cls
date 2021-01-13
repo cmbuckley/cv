@@ -105,7 +105,6 @@
   {\em #3} \hfill {\em #4} % Italic company name and location
   \\[1.5ex]
   }}{
-  \\
 }
 
 % The below commands define the whitespace after certain things in the document - they can be \smallskip, \medskip or \bigskip
