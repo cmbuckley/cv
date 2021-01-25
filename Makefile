@@ -47,12 +47,13 @@ role: clean
 ifeq ("$(ROLE_CUR)", "$(ROLE_POS) at $(ROLE_LOC)")
 	@echo 'Role not changed'
 else
+	@echo "Current role: [$(ROLE_CUR)]"
 	curl -X PATCH $(GH_API)/user -u $(GIT_TOKEN) -d '{"bio":"$(ROLE_POS) at $(ROLE_LOC)"}'
 
 	git clone https://github.com/$(SITE_REPO) $(SITE_DIR)
 	pushd $(SITE_DIR); \
 		git checkout -b $(SITE_BRANCH); \
-		sed -i '' '/company:/s/company: .*/company: $(subst &,\&,$(ROLE_LOC))/;/role:/s/role: .*/role: $(ROLE_POS)/' _config.yml; \
+		sed -i'.bak' '/company:/s/company: .*/company: $(subst &,\&,$(ROLE_LOC))/;/role:/s/role: .*/role: $(ROLE_POS)/' _config.yml; \
 		git commit -am 'Update role from CV'; \
 		git push "https://$(GIT_TOKEN)@github.com/$(SITE_REPO)" HEAD; \
 	popd
