@@ -7,8 +7,8 @@ GH_API := https://api.github.com
 
 # Position and location for current role
 ROLE_CUR := $(shell curl -su $(GIT_TOKEN) $(GH_API)/user | grep bio | cut -d '"' -f4)
-ROLE_POS := $(shell awk -v col=8 -f $(SRC)/role.awk $(CV_TEX))
-ROLE_LOC := $(shell awk -v col=4 -f $(SRC)/role.awk $(CV_TEX))
+ROLE_POS := $(shell awk -v col=4 -f $(SRC)/role.awk $(CV_TEX))
+ROLE_LOC := $(shell awk -v col=8 -f $(SRC)/role.awk $(CV_TEX))
 
 # Details for main site when updating role
 SITE_REPO := cmbuckley/cmbuckley.github.io
