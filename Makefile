@@ -61,7 +61,7 @@ endif
 
 travis: default
 	bundle exec jekyll build
-	ls -l _site
+	ls -lR _site
 
 purge:
 	curl -X DELETE "https://api.cloudflare.com/client/v4/zones/$(CLOUDFLARE_ZONE)/purge_cache" \
