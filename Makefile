@@ -60,6 +60,7 @@ else
 endif
 
 travis: default
+	bundle exec jekyll build
 	ls -l _site
 
 purge:
