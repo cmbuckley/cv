@@ -4,6 +4,7 @@ CV_TEX := $(SRC)/cv.tex
 CV_MD := index.md
 GIT_REMOTE := $(shell git config remote.origin.url)
 GH_API := https://api.github.com
+BASE_URL := https://cmbuckley.co.uk
 
 # Position and location for current role
 ROLE_CUR := $(shell curl -su $(GIT_TOKEN) $(GH_API)/user | grep bio | cut -d '"' -f4)
@@ -51,11 +52,11 @@ else
 	curl -X PATCH $(GH_API)/user -u $(GIT_TOKEN) -d '{"bio":"$(ROLE_POS) at $(ROLE_LOC)"}'
 
 	git clone https://github.com/$(SITE_REPO) $(SITE_DIR)
-	pushd $(SITE_DIR); \
-		git checkout -b $(SITE_BRANCH); \
-		sed -i'.bak' '/company:/s/company: .*/company: $(subst &,\&,$(ROLE_LOC))/;/role:/s/role: .*/role: $(ROLE_POS)/' _config.yml; \
-		git commit -am 'Update role from CV'; \
-		git push "https://$(GIT_TOKEN)@github.com/$(SITE_REPO)" HEAD; \
+	pushd $(SITE_DIR)
+	git checkout -b $(SITE_BRANCH)
+	sed -i'.bak' '/company:/s/company: .*/company: $(subst &,\&,$(ROLE_LOC))/;/role:/s/role: .*/role: $(subs &,\&,$(ROLE_POS))/' _config.yml
+	git commit -am 'Update role from CV'
+	git push "https://$(GIT_TOKEN)@github.com/$(SITE_REPO)" HEAD
 	popd
 	curl -X POST $(GH_API)/repos/$(SITE_REPO)/pulls -u $(GIT_TOKEN) \
 		-d '{"title":"Update role from CV", "head":"$(SITE_BRANCH)", "base": "master"}'
@@ -74,7 +75,8 @@ endif
 
 purge:
 	curl -X DELETE "https://api.cloudflare.com/client/v4/zones/$(CLOUDFLARE_ZONE)/purge_cache" \
-		-H "X-Auth-Email: $(CLOUDFLARE_EMAIL)" -H "X-Auth-Key: $(CLOUDFLARE_TOKEN)" \
-		-H "Content-Type: application/json" --data '{"purge_everything":true}'
+		-H "Authorization: Bearer $(CLOUDFLARE_TOKEN)" \
+		-H "Content-Type: application/json" \
+		--data '{"files":["$(BASE_URL)/cv/"]}'
 
 travis_success: role purge
