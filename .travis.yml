@@ -17,7 +17,7 @@ env:
 
   # Cloudflare purge
   - CLOUDFLARE_EMAIL: chris@cmbuckley.co.uk
-  - secure: R11ffXEQ3XV4M7lGu9yTv2j0fslR5Vs9EdRlP9OaBkxz2pe7VqcHI68f8PDaUwuse0YmnLsLRoZqTlSwYsxn8cKkiC9FdsDUXG/E1WfBe4s78+LXgSk62ToUqs1C8esxu6uIkX5QrXCVJGQm6mNRUQme9cnwaxOMxol9IGVuWNk=
+  - secure: "M+RaMtpG+51bH06G/8ya73agWNbBDy8eX7CJZra4S8m3u2WRrilmY9TyLlUJNi/pz4oVe7thG7tbcaKiHTHWP+UXeDky2k+NScDawhu/h7kRqf2nrbNOs4g/iwnBdSviV4FMmgKvpS3Egh/KUuvqmL3MylINJlc4jBq8JTOvrwQ="
 branches:
   only:
   - master

@@ -66,7 +66,8 @@ travis: default
 
 purge:
 	curl -X DELETE "https://api.cloudflare.com/client/v4/zones/$(CLOUDFLARE_ZONE)/purge_cache" \
-		-H "X-Auth-Email: $(CLOUDFLARE_EMAIL)" -H "X-Auth-Key: $(CLOUDFLARE_TOKEN)" \
-		-H "Content-Type: application/json" --data '["$(BASE_URL)/cv/"]'
+		-H "Authorization: Bearer $(CLOUDFLARE_TOKEN)" \
+		-H "Content-Type: application/json" \
+		--data '["$(BASE_URL)/cv/"]'
 
 travis_success: role purge
