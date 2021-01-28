@@ -4,6 +4,7 @@ CV_TEX := $(SRC)/cv.tex
 CV_MD := index.md
 GIT_REMOTE := $(shell git config remote.origin.url)
 GH_API := https://api.github.com
+BASE_URL := https://cmbuckley.co.uk
 
 # Position and location for current role
 ROLE_CUR := $(shell curl -su $(GIT_TOKEN) $(GH_API)/user | grep bio | cut -d '"' -f4)
@@ -66,6 +67,6 @@ travis: default
 purge:
 	curl -X DELETE "https://api.cloudflare.com/client/v4/zones/$(CLOUDFLARE_ZONE)/purge_cache" \
 		-H "X-Auth-Email: $(CLOUDFLARE_EMAIL)" -H "X-Auth-Key: $(CLOUDFLARE_TOKEN)" \
-		-H "Content-Type: application/json" --data '{"purge_everything":true}'
+		-H "Content-Type: application/json" --data '["$(BASE_URL)/cv/"]'
 
 travis_success: role purge
