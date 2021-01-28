@@ -53,7 +53,7 @@ else
 	git clone https://github.com/$(SITE_REPO) $(SITE_DIR)
 	pushd $(SITE_DIR)
 	git checkout -b $(SITE_BRANCH)
-	sed -i'.bak' '/company:/s/company: .*/company: $(subst &,\&,$(ROLE_LOC))/;/role:/s/role: .*/role: $(ROLE_POS)/' _config.yml
+	sed -i'.bak' '/company:/s/company: .*/company: $(subst &,\&,$(ROLE_LOC))/;/role:/s/role: .*/role: $(subs &,\&,$(ROLE_POS))/' _config.yml
 	git commit -am 'Update role from CV'
 	git push "https://$(GIT_TOKEN)@github.com/$(SITE_REPO)" HEAD
 	popd
