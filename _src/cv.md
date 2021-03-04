@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Curriculum Vitae
-description: Chris Buckley's CV.
+description:
 og_type: website
 class: cv
 style:
