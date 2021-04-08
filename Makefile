@@ -52,6 +52,8 @@ else
 	curl -X PATCH $(GH_API)/user -u $(GIT_TOKEN) -d '{"bio":"$(ROLE_POS) at $(ROLE_LOC)"}'
 
 	git clone https://github.com/$(SITE_REPO) $(SITE_DIR)
+	git -C $(SITE_DIR) config user.name $(GIT_NAME)
+	git -C $(SITE_DIR) config user.email $(GIT_EMAIL)
 	git -C $(SITE_DIR) checkout -b $(SITE_BRANCH)
 	sed -i'.bak' '/company:/s/company: .*/company: $(subst &,\&,$(ROLE_LOC))/;/role:/s/role: .*/role: $(subst &,\&,$(ROLE_POS))/' $(SITE_DIR)/_config.yml
 	git -C $(SITE_DIR) commit -am 'Update role from CV'

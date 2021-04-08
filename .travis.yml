@@ -14,7 +14,7 @@ env:
   global:
   # GitHub Pages
   - GIT_NAME: Travis CI
-  - GIT_EMAIL: travis@travis-ci.org
+  - GIT_EMAIL: travis@travis-ci.com
   - secure: TehGtKGERrjy4ZAlDIkjo6MjLynbb+THO3fLmskYtMoEs5kCaTr4rszY8Bb6Sc+MvLk6gVG6IvqlKiCvb8Ef455j3ZLaNZimMpgJPAmWbm0VtqobVBK/E9vIcmTH+FPJLBZkoi9meywUkWsCZu93HucbDZF4NyYkdcse/SQTc80=
 
   # Cloudflare purge
