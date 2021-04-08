@@ -15,7 +15,7 @@ env:
   # GitHub Pages
   - GIT_NAME: Travis CI
   - GIT_EMAIL: travis@travis-ci.org
-  - secure: RC/SGe76X0bePdUfFvZN9Eb76Lxd8eOGC6gHctKlEh9x2ve1LuBjRBirzrYMSRhCJox7erRpndMNkNgoh18DxghdO0VtZJabTF+XfYJoEzJTQFTX/Moe1Zx/zApwaXn/C0WdvfLKLdQN0miKhTtM4w9PbnRNq6clzP/M3qTD3aM=
+  - secure: TehGtKGERrjy4ZAlDIkjo6MjLynbb+THO3fLmskYtMoEs5kCaTr4rszY8Bb6Sc+MvLk6gVG6IvqlKiCvb8Ef455j3ZLaNZimMpgJPAmWbm0VtqobVBK/E9vIcmTH+FPJLBZkoi9meywUkWsCZu93HucbDZF4NyYkdcse/SQTc80=
 
   # Cloudflare purge
   - CLOUDFLARE_EMAIL: chris@cmbuckley.co.uk
