@@ -8,6 +8,8 @@ addons:
     - texlive-latex-extra
 script: make travis
 after_success: make travis_success
+git:
+  depth: false
 env:
   global:
   # GitHub Pages
