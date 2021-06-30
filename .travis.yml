@@ -18,8 +18,7 @@ env:
   - secure: TehGtKGERrjy4ZAlDIkjo6MjLynbb+THO3fLmskYtMoEs5kCaTr4rszY8Bb6Sc+MvLk6gVG6IvqlKiCvb8Ef455j3ZLaNZimMpgJPAmWbm0VtqobVBK/E9vIcmTH+FPJLBZkoi9meywUkWsCZu93HucbDZF4NyYkdcse/SQTc80=
 
   # Cloudflare purge
-  - CLOUDFLARE_EMAIL: chris@cmbuckley.co.uk
-  - secure: "M+RaMtpG+51bH06G/8ya73agWNbBDy8eX7CJZra4S8m3u2WRrilmY9TyLlUJNi/pz4oVe7thG7tbcaKiHTHWP+UXeDky2k+NScDawhu/h7kRqf2nrbNOs4g/iwnBdSviV4FMmgKvpS3Egh/KUuvqmL3MylINJlc4jBq8JTOvrwQ="
+  - secure: "UrnJ09DWs3lrYd6+5MAcZRIdIE+oFLsQ4507TEhrzXvK68nWtq1TDLKAvVcFr2wQbJjcGjyjaGfqgB/poanGHzupBKmu95/R8SiavN2NuAMKdG7Qx2vtkp26jhY3doCP/9/hxWHxXVzgHwTOf7m1REPfLhIR2TfhUYutR8FKd7Q="
 branches:
   only:
   - master
