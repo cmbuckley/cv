@@ -1,5 +1,6 @@
 ---
 ---
+@import "config";
 @import "partials/mixins";
 
 .cv .content {
@@ -26,6 +27,7 @@
     }
 
     .download {
+        @extend %screen-only;
         text-align: center;
     }
 
