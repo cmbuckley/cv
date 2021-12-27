@@ -2,9 +2,7 @@ SHELL=/bin/bash
 SRC = _src
 CV_TEX := $(SRC)/cv.tex
 CV_MD := index.md
-GIT_REMOTE := $(shell git config remote.origin.url)
 GH_API := https://api.github.com
-BASE_URL := https://cmbuckley.co.uk
 
 # Position and location for current role
 ROLE_CUR := $(shell curl -su $(GIT_TOKEN) $(GH_API)/user | grep bio | cut -d '"' -f4)
@@ -16,7 +14,7 @@ SITE_REPO := cmbuckley/cmbuckley.github.io
 SITE_DIR := ../cmbuckley.github.io
 SITE_BRANCH := $(shell date +'role-%Y%m%d-%H%M%S')
 
-.PHONY: pdf md travis clean spell check role travis_success
+.PHONY: pdf md clean spell check role
 
 default: pdf md
 
@@ -61,22 +59,3 @@ else
 	curl -X POST $(GH_API)/repos/$(SITE_REPO)/pulls -u $(GIT_TOKEN) \
 		-d '{"title":"Update role from CV", "head":"$(SITE_BRANCH)", "base": "master"}'
 endif
-
-travis: default
-ifeq ($(TRAVIS_PULL_REQUEST), true)
-	@echo 'Travis target not executed for pull requests.'
-else
-	git config user.name $(GIT_NAME)
-	git config user.email $(GIT_EMAIL)
-	git add -f cv.pdf $(CV_MD)
-	git commit -m 'Updated GitHub Pages'
-	git push -f "https://$(GIT_TOKEN)@$(word 2,$(subst ://, ,$(GIT_REMOTE)))" HEAD:gh-pages
-endif
-
-purge:
-	curl -X DELETE "https://api.cloudflare.com/client/v4/zones/$(CLOUDFLARE_ZONE)/purge_cache" \
-		-H "Authorization: Bearer $(CLOUDFLARE_TOKEN)" \
-		-H "Content-Type: application/json" \
-		--data '{"files":["$(BASE_URL)/cv/"]}'
-
-travis_success: role purge
