@@ -2,6 +2,7 @@ name: Purge Cloudflare Cache
 on: page_build
 jobs:
   purge_cache:
+    name: Purge Cloudflare Cache
     runs-on: ubuntu-latest
     steps:
     - name: Purge cache
