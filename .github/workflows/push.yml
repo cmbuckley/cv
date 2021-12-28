@@ -1,0 +1,77 @@
+name: On Push
+on:
+  push:
+    branches: master
+jobs:
+  build-assets:
+    name: Build CV Assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up git repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Install LaTeX packages
+        run: sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra
+      - name: Build assets
+        run: make
+      - name: Commit assets
+        run: |
+          git config user.name 'GitHub Actions'
+          git config user.email '${{ github.actor }}+${{ github.job }}@users.noreply.github.com'
+          git add -f cv.pdf index.md
+          git commit -m 'Updated GitHub Pages'
+          git push -f origin HEAD:gh-pages
+  check-role:
+    name: Check Role
+    runs-on: ubuntu-latest
+    outputs:
+      role-changed: ${{ steps.check.outputs.role-changed }}
+      role-pos: ${{ steps.details.outputs.role-pos }}
+      role-loc: ${{ steps.details.outputs.role-loc }}
+    steps:
+      - name: Set up git repo
+        uses: actions/checkout@v2
+      - name: Get current role and location
+        id: details
+        run: |
+          echo "::set-output name=role-cur::$(curl -sSu ${{ github.repository_owner }}:${{ secrets.GH_TOKEN }} $GITHUB_API_URL/user | jq -r .bio)"
+          echo "::set-output name=role-pos::$(awk -v col=4 -f _src/role.awk _src/cv.tex)"
+          echo "::set-output name=role-loc::$(awk -v col=8 -f _src/role.awk _src/cv.tex)"
+      - name: Compare roles
+        id: check
+        run: |
+          echo "Current: ${{ steps.details.outputs.role-cur }}"
+          echo "New: ${{ format('{0} at {1}', steps.details.outputs.role-pos, steps.details.outputs.role-loc) }}"
+          echo "::set-output name=role-changed::${{ toJSON(steps.details.outputs.role-cur != format('{0} at {1}', steps.details.outputs.role-pos, steps.details.outputs.role-loc)) }}"
+  update-role:
+    name: Update Role
+    runs-on: ubuntu-latest
+    needs: check-role
+    if: ${{ fromJSON(needs.check-role.outputs.role-changed) }}
+    steps:
+      - name: Update GitHub bio
+        run: curl -X PATCH -sSu ${{ github.repository_owner }}:${{ secrets.GH_TOKEN }} $GITHUB_API_URL/user -d '{"bio":"${{ format('{0} at {1}', needs.check-role.outputs.role-pos, needs.check-role.outputs.role-loc) }}"}'
+      - name: Set up git repo for main site
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.io
+          token: ${{ secrets.GH_TOKEN }}
+          path: ${{ github.workspace }}/site
+      - name: Make config changes
+        env:
+          ROLE_POS: ${{ needs.check-role.outputs.role-pos }}
+          ROLE_LOC: ${{ needs.check-role.outputs.role-loc }}
+          SITE_DIR: ${{ github.workspace }}/site
+        run: |
+          sed -i "/company:/s/company: .*/company: ${ROLE_LOC/&/\\&}/;/role:/s/role: .*/role: ${ROLE_POS/&/\\&}/" "$SITE_DIR/_config.yml"
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          path: ${{ github.workspace }}/site
+          branch: role-${{ github.run_id }}
+          author: 'GitHub Actions <${{ github.actor }}+${{ github.job }}@users.noreply.github.com>'
+          commit-message: Update role from CV
+          title: Update role from CV
+          body: Automated changes from [${{ github.workflow }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) job.

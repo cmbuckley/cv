@@ -2,19 +2,8 @@ SHELL=/bin/bash
 SRC = _src
 CV_TEX := $(SRC)/cv.tex
 CV_MD := index.md
-GH_API := https://api.github.com
 
-# Position and location for current role
-ROLE_CUR := $(shell curl -su $(GIT_TOKEN) $(GH_API)/user | grep bio | cut -d '"' -f4)
-ROLE_POS := $(shell awk -v col=4 -f $(SRC)/role.awk $(CV_TEX))
-ROLE_LOC := $(shell awk -v col=8 -f $(SRC)/role.awk $(CV_TEX))
-
-# Details for main site when updating role
-SITE_REPO := cmbuckley/cmbuckley.github.io
-SITE_DIR := ../cmbuckley.github.io
-SITE_BRANCH := $(shell date +'role-%Y%m%d-%H%M%S')
-
-.PHONY: pdf md clean spell check role
+.PHONY: pdf md clean spell check
 
 default: pdf md
 
@@ -37,25 +26,7 @@ md: $(CV_TEX)
 	rm $(CV_MD).bak
 
 clean:
-	rm -rf $(CV_MD) cv.* $(SRC)/cv.{aux,log,out,toc} $(SITE_DIR)
+	rm -rf $(CV_MD) cv.* $(SRC)/cv.{aux,log,out,toc}
 
 spell: check md
 	aspell list < $(CV_MD) | LANG=C sort -u
-
-role: clean
-ifeq ("$(ROLE_CUR)", "$(ROLE_POS) at $(ROLE_LOC)")
-	@echo 'Role not changed'
-else
-	@echo "Current role: [$(ROLE_CUR)]"
-	curl -X PATCH $(GH_API)/user -u $(GIT_TOKEN) -d '{"bio":"$(ROLE_POS) at $(ROLE_LOC)"}'
-
-	git clone https://github.com/$(SITE_REPO) $(SITE_DIR)
-	git -C $(SITE_DIR) config user.name $(GIT_NAME)
-	git -C $(SITE_DIR) config user.email $(GIT_EMAIL)
-	git -C $(SITE_DIR) checkout -b $(SITE_BRANCH)
-	sed -i'.bak' '/company:/s/company: .*/company: $(subst &,\&,$(ROLE_LOC))/;/role:/s/role: .*/role: $(subst &,\&,$(ROLE_POS))/' $(SITE_DIR)/_config.yml
-	git -C $(SITE_DIR) commit -am 'Update role from CV'
-	git -C $(SITE_DIR) push "https://$(GIT_TOKEN)@github.com/$(SITE_REPO)" HEAD
-	curl -X POST $(GH_API)/repos/$(SITE_REPO)/pulls -u $(GIT_TOKEN) \
-		-d '{"title":"Update role from CV", "head":"$(SITE_BRANCH)", "base": "master"}'
-endif

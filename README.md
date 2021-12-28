@@ -6,6 +6,12 @@ tlmgr option repository ftp://tug.org/historic/systems/texlive/2015/tlnet-final
 tlmgr install parskip
 ```
 
+# Setup for GitHub Actions
+
+Need to create a Personal Access Token with `repo` and `user` scopes, and store as a secret called `GH_TOKEN`.
+
+To purge Cloudflare cache, a `CLOUDFLARE_ZONE` and `CLOUDFLARE_TOKEN` (with the `Cache Purge` permission) are also needed.
+
 # Other places containing job details
 
 * https://www.linkedin.com/in/cmbuckley/
