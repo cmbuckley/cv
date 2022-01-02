@@ -3,6 +3,7 @@ BEGIN {
     org="Company"
 }
 
+# generic tidying of LaTeX syntax
 {
     gsub(/\\&/, "\\&")
     gsub(/~/, "\\&nbsp;")
@@ -60,16 +61,31 @@ BEGIN {
     }
 }
 
-/\\item/ {
-    gsub(/\\item /, "")
-    print "* " $1
+# Print item content
+/\\item|end.experience/ {
+    if (item) {
+        print "*" item
+    }
+
+    item = ""
+    capture_item  = ($1 ~ /item/)
 }
 
+# Concat item if capturing content
+{
+    if (capture_item) {
+        gsub(/^(\\item)? +/, "")
+        item = item " " $1
+    }
+}
+
+# Start printing summary
 /Summary/ {
     summary = 1
     next
 }
 
+# Stop printing summary
 /^%/ {
     summary = 0
 }

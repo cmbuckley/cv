@@ -107,7 +107,7 @@
    \itemsep -0.5em \vspace{-0.5em} % Compress items in list together for aesthetics
   }{
   \end{list}
-  \vspace{0.5em} % Some space after the list of bullet points
+  \vspace{1.5ex} % Some space after the list of bullet points
   \pagebreak[3] % This is a very nice place to break a page
 }
 
