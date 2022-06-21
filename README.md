@@ -1,6 +1,15 @@
 # Setup for LaTeX
 
+
+yum:
 ```
+sudo yum install texlive-collection-latex texlive-parskip texlive-titlesec
+```
+
+apt:
+
+```
+sudo apt install texlive-latex-base texlive-latex-recommended texlive-latex-extra
 tlmgr init-usertree
 tlmgr option repository ftp://tug.org/historic/systems/texlive/2015/tlnet-final
 tlmgr install parskip
