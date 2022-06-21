@@ -1,6 +1,5 @@
 # Setup for LaTeX
 
-
 yum:
 ```
 sudo yum install texlive-collection-latex texlive-parskip texlive-titlesec
