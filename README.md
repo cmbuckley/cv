@@ -28,3 +28,4 @@ To purge Cloudflare cache, a `CLOUDFLARE_ZONE` and `CLOUDFLARE_TOKEN` (with the 
     * Manual
 * https://en.wikipedia.org/wiki/User:Cbuckley
     * https://www.mediawiki.org/wiki/API:Edit
+* https://github.com/cmbuckley/cmbuckley
