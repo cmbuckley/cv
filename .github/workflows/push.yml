@@ -41,15 +41,15 @@ jobs:
       - name: Get current role and location
         id: details
         run: |
-          echo "::set-output name=existing::$(curl -sSu ${{ github.repository_owner }}:${{ secrets.GH_TOKEN }} $GITHUB_API_URL/user | jq -r .bio)"
-          echo "::set-output name=role::$(awk -v col=4 -f _src/role.awk _src/cv.tex)"
-          echo "::set-output name=company::$(awk -v col=8 -f _src/role.awk _src/cv.tex)"
+          echo "existing=$(curl -sSu ${{ github.repository_owner }}:${{ secrets.GH_TOKEN }} $GITHUB_API_URL/user | jq -r .bio)" >> $GITHUB_OUTPUT
+          echo "role=$(awk -v col=4 -f _src/role.awk _src/cv.tex)" >> $GITHUB_OUTPUT
+          echo "company=$(awk -v col=8 -f _src/role.awk _src/cv.tex)" >> $GITHUB_OUTPUT
       - name: Compare roles
         id: check
         run: |
           echo "Current: ${{ steps.details.outputs.existing }}"
           echo "New: ${{ format('{0} at {1}', steps.details.outputs.role, steps.details.outputs.company) }}"
-          echo "::set-output name=changed::${{ toJSON(steps.details.outputs.existing != format('{0} at {1}', steps.details.outputs.role, steps.details.outputs.company)) }}"
+          echo "changed=${{ toJSON(steps.details.outputs.existing != format('{0} at {1}', steps.details.outputs.role, steps.details.outputs.company)) }}" >> $GITHUB_OUTPUT
   update-role:
     name: Update Role
     runs-on: ubuntu-latest
