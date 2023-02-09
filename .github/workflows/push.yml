@@ -63,13 +63,13 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           path: ${{ github.workspace }}/site
       - name: Update role
-        uses: jacobtomlinson/gha-find-replace@v2
+        uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: 'role:.*'
           replace: 'role: ${{ needs.check-role.outputs.role }}'
           include: site/_config.yml
       - name: Update company
-        uses: jacobtomlinson/gha-find-replace@v2
+        uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: 'company:.*'
           replace: 'company: ${{ needs.check-role.outputs.company }}'
