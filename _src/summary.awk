@@ -2,6 +2,10 @@ BEGIN {
     summary = ""
 }
 
+/numexpr/ {
+    gsub(/\\the\\numexpr \\year - .+ \\relax\+ years' /, "")
+}
+
 /section.Summary/ {
     capture = 1
     next

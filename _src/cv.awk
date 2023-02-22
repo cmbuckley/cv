@@ -79,6 +79,11 @@ BEGIN {
     }
 }
 
+/numexpr/ {
+    gsub(/\\the\\numexpr \\year - /, "{{ site.time | date: '%Y' | minus: ")
+    gsub(/\\relax/, "}}")
+}
+
 # Start printing summary
 /Summary/ {
     summary = 1
