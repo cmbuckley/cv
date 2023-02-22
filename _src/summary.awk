@@ -2,6 +2,10 @@ BEGIN {
     summary = ""
 }
 
+/\\EY/ {
+    gsub(/ over \\EY\{\} years'/, "")
+}
+
 /section.Summary/ {
     capture = 1
     next
