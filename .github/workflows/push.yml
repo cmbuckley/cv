@@ -22,7 +22,7 @@ jobs:
           file_pattern: cv.pdf index.md
           skip_dirty_check: true
           skip_checkout: true
-          commit_author: 'GitHub Actions <${{ github.actor }}+${{ github.job }}@users.noreply.github.com>'
+          commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
           commit_message: Updated GitHub Pages
           branch: gh-pages
           push_options: --force
