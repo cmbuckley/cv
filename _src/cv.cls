@@ -91,7 +91,7 @@
     {0pt}{2ex plus 1ex minus .2ex}{1ex plus .2ex}
 
 \titlespacing*{\subsection}
-    {0pt}{2ex plus 1ex minus .2ex}{.5ex plus .1ex}
+    {0pt}{2ex plus 1ex minus .2ex}{1ex plus .2ex}
 
 \titleformat{\section}
     {\Large\bfseries}{}{0em}{\MakeUppercase}[{\vskip5pt\titlerule[0.4pt]}]
