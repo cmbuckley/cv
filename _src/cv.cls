@@ -88,7 +88,7 @@
 %----------------------------------------------------------------------------------------
 
 \titlespacing*{\section}
-    {0pt}{2ex plus 1ex minus .2ex}{1ex plus .2ex}
+    {0pt}{4ex plus 1ex minus .2ex}{1ex plus .2ex}
 
 \titlespacing*{\subsection}
     {0pt}{2ex plus 1ex minus .2ex}{1ex plus .2ex}
