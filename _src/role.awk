@@ -2,7 +2,7 @@ BEGIN {
     FS="[{}]"
 }
 
-/{experience}/ {
+/{experience(plain)?}/ {
     gsub(/\\/, "", $0)
     print $col
     exit
