@@ -17,6 +17,7 @@
 \usepackage{titlesec} % Required for title styling
 \RequirePackage[pdfusetitle]{hyperref}
 \usepackage{bookmark}
+\usepackage{enumitem} % Control layout of lists
 
 \pagestyle{empty} % Suppress page numbers
 
@@ -96,19 +97,27 @@
 %	WORK EXPERIENCE FORMATTING
 %----------------------------------------------------------------------------------------
 
-\newenvironment{experience}[4]{ % 4 input arguments - company name, year(s) employed, job title and location
+\setlist{noitemsep, topsep=0pt, leftmargin=1em} % Compress items in list together for aesthetics
+\def\labelitemi{$\cdot$}
+
+\newenvironment{experienceplain}[4]{ % 4 input arguments - company name, year(s) employed, job title and location
  {\bf #1} \hfill {#2} % Bold job title, and date on the right
  \ifthenelse{\equal{#3}{}}{}{ % If the third argument is not specified, don't print the job title and location line
   \\
   {\em #3} \hfill {\em #4} % Italic company name and location
   \\[-1.5ex]
   }
-  \begin{list}{$\cdot$}{\leftmargin=1em} % \cdot used for bullets, no indentation
-   \itemsep -0.5em \vspace{-0.5em} % Compress items in list together for aesthetics
-  }{
-  \end{list}
+}{
   \vspace{1.5ex} % Some space after the list of bullet points
   \pagebreak[3] % This is a very nice place to break a page
+}
+
+\newenvironment{experience}[4]{ % Plain environment but starts a list
+  \begin{experienceplain}{#1}{#2}{#3}{#4}
+  \begin{itemize}
+}{
+  \end{itemize}
+  \end{experienceplain}
 }
 
 % The below commands define the whitespace after certain things in the document - they can be \smallskip, \medskip or \bigskip
