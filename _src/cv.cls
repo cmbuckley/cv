@@ -107,7 +107,7 @@
 \def\labelitemi{$\cdot$}
 
 \newenvironment{experienceplain}[4]{ % 4 input arguments - company name, year(s) employed, job title and location
- {\bf #1} \hfill {#2} % Bold job title, and date on the right
+ \ifthenelse{\equal{#1}{}}{}{{\bf #1} \hfill {#2}} % Bold job title, and date on the right
  \ifthenelse{\equal{#3}{}}{}{ % If the third argument is not specified, don't print the job title and location line
   \\
   {\em #3} \hfill {\em #4} % Italic company name and location
