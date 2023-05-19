@@ -33,6 +33,11 @@ BEGIN {
     print "## " $2
 }
 
+/\\subsection/ {
+    print ""
+    print "#### " $2
+}
+
 /section.Qualifications/ {
     org="Institution"
 }
@@ -62,7 +67,7 @@ BEGIN {
 }
 
 # Print item content
-/\\item|end.experience/ {
+/\\item|end.(experience|itemize)/ {
     if (item) {
         print "*" item
     }
