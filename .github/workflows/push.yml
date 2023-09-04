@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up git repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_TOKEN }}
       - name: Install LaTeX packages
@@ -35,7 +35,7 @@ jobs:
       company: ${{ steps.details.outputs.company }}
     steps:
       - name: Set up git repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Get current role and location
         id: details
         run: |
@@ -57,7 +57,7 @@ jobs:
       - name: Update GitHub bio
         run: curl -X PATCH -sSu ${{ github.repository_owner }}:${{ secrets.GH_TOKEN }} $GITHUB_API_URL/user -d '{"bio":"${{ format('{0} at {1}', needs.check-role.outputs.role, needs.check-role.outputs.company) }}"}'
       - name: Set up git repo for main site
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.io
           token: ${{ secrets.GH_TOKEN }}
