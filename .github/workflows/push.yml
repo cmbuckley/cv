@@ -81,10 +81,10 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           path: ${{ github.workspace }}/site
           branch: role-${{ github.run_id }}
-          author: 'GitHub Actions <${{ github.actor }}+${{ github.job }}@users.noreply.github.com>'
+          author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
           commit-message: Update role from CV
           title: Update role from CV
-          body: Automated changes from [${{ github.workflow }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) job.
+          body: 'Updates role to match CV repository. See full diff: ${{ github.repository }}@${{ github.ref }}'
       - name: Check Pull Request
         if: steps.pull-request.outputs.pull-request-operation == ''
         uses: actions/github-script@v6
