@@ -1,6 +1,6 @@
 BEGIN {
     FS="[{}]"
-    org="Company"
+    experience_mode="heading"
 }
 
 # generic tidying of LaTeX syntax
@@ -39,19 +39,19 @@ BEGIN {
 }
 
 /section.Qualifications/ {
-    org="Institution"
+    experience_mode="dt"
 }
 
 /begin.experience/ {
     print ""
 
-    if ($4) {
+    if (experience_mode == "heading") {
         print "### " $4
 
-        print org
-        print ":  " $8 ($10 && org == "Institution" ? ", " $10 : "")
+        print "Company"
+        print ":  " $8
 
-        if ($10 && org == "Company") {
+        if ($10) {
             print ""
             print "Location"
             print ":  " $10
@@ -63,6 +63,9 @@ BEGIN {
 
         print "{:.meta}"
         print ""
+    } else {
+        print $4
+        print ":  " $8 ($10 ? ", " $10 : "") ($6 ? ", " $6 : "")
     }
 }
 
