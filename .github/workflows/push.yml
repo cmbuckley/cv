@@ -65,7 +65,7 @@ jobs:
       - name: Update GitHub bio
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: gh api --PATCH user -F "bio=${{ format('{0} at {1}', needs.check-role.outputs.role, needs.check-role.outputs.company) }}"
+        run: gh api -X PATCH user -F "bio=${{ format('{0} at {1}', needs.check-role.outputs.role, needs.check-role.outputs.company) }}"
       - name: Set up git repo for main site
         uses: actions/checkout@v4
         with:
