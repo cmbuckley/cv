@@ -15,7 +15,9 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
       - name: Install LaTeX packages
-        run: sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra
       - name: Build assets
         run: make
       - name: Commit assets
