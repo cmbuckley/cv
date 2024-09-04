@@ -42,6 +42,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Get current role and location
         id: details
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           echo "existing=$(gh api user -q .bio)" >> $GITHUB_OUTPUT
           echo "role=$(awk -v col=4 -f _src/role.awk _src/cv.tex)" >> $GITHUB_OUTPUT
