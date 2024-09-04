@@ -45,7 +45,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          echo "existing=$(gh api user -q .bio)" >> $GITHUB_OUTPUT
+          echo "existing=$(gh api users/${{ github.repository_owner }} -q .bio)" >> $GITHUB_OUTPUT
           echo "role=$(awk -v col=4 -f _src/role.awk _src/cv.tex)" >> $GITHUB_OUTPUT
           echo "company=$(awk -v col=8 -f _src/role.awk _src/cv.tex)" >> $GITHUB_OUTPUT
       - name: Compare roles
