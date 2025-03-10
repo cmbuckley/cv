@@ -14,7 +14,7 @@ endif
 
 pdf: $(CV_TEX)
 	pdflatex -output-directory $(SRC) $(CV_TEX)
-	mv $(SRC)/cv.pdf .
+	mv $(SRC)/cv.pdf chris-buckley-cv.pdf
 
 md: $(CV_TEX)
 	cp $(SRC)/cv.md $(CV_MD)

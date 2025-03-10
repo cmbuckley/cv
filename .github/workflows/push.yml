@@ -23,7 +23,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           add_options: -f
-          file_pattern: cv.pdf index.md
+          file_pattern: chris-buckley-cv.pdf index.md
           skip_dirty_check: true
           skip_checkout: true
           commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
