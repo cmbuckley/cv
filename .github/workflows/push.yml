@@ -28,7 +28,6 @@ jobs:
           add_options: -f
           file_pattern: chris-buckley-cv.pdf index.md
           skip_dirty_check: true
-          skip_checkout: true
           commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
           commit_message: Updated GitHub Pages
           branch: gh-pages
