@@ -13,7 +13,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_TOKEN }} # to ensure page_build workflow executes
+          # to ensure page_build workflow executes. Fallback for dependabot
+          token: ${{ secrets.GH_TOKEN || github.token }}
       - name: Install LaTeX packages
         run: |
           sudo apt-get update
