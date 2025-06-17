@@ -23,7 +23,7 @@ jobs:
         run: make
       - name: Commit assets
         if: ${{ github.event_name == 'push' }}
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           add_options: -f
           file_pattern: chris-buckley-cv.pdf index.md
