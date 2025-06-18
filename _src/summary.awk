@@ -1,5 +1,15 @@
 BEGIN {
+    "date +%Y" | getline currentYear
     summary = ""
+}
+
+# from _config.yml
+/experience_from/ {
+    experienceFrom = $2
+}
+
+/\\ExperienceYears/ {
+    gsub(/\\ExperienceYears\{\}/, currentYear - experienceFrom)
 }
 
 /section.Summary/ {

@@ -87,6 +87,10 @@ BEGIN {
     }
 }
 
+/\\ExperienceYears/ {
+    gsub(/\\ExperienceYears\{\}/, "{{ site.time | date: '%Y' | minus: site.experience_from }}")
+}
+
 # Start printing summary
 /Summary/ {
     summary = 1

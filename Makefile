@@ -18,7 +18,7 @@ pdf: $(CV_TEX)
 
 md: $(CV_TEX)
 	cp $(SRC)/cv.md $(CV_MD)
-	sed -i'.bak' "s/description:.*$$/&$(shell awk -f $(SRC)/summary.awk $(CV_TEX))/" $(CV_MD)
+	sed -i'.bak' "s/description:.*$$/&$(shell awk -f $(SRC)/summary.awk _config.yml $(CV_TEX))/" $(CV_MD)
 	awk -f $(SRC)/cv.awk $(CV_TEX) >> $(CV_MD)
 	while IFS=: read interest link; \
 		do sed -i'.bak' "s~$$interest~[&]($${link/ /})~" $(CV_MD); \
