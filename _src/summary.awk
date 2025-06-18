@@ -8,8 +8,8 @@ BEGIN {
     experienceFrom = $2
 }
 
-/\\EY/ {
-    gsub(/\\EY\{\}/, currentYear - experienceFrom)
+/\\ExperienceYears/ {
+    gsub(/\\ExperienceYears\{\}/, currentYear - experienceFrom)
 }
 
 /section.Summary/ {

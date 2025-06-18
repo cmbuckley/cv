@@ -87,8 +87,8 @@ BEGIN {
     }
 }
 
-/\\EY/ {
-    gsub(/\\EY\{\}/, "{{ site.time | date: '%Y' | minus: site.experience_from }}")
+/\\ExperienceYears/ {
+    gsub(/\\ExperienceYears\{\}/, "{{ site.time | date: '%Y' | minus: site.experience_from }}")
 }
 
 # Start printing summary
