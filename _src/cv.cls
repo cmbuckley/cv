@@ -134,3 +134,5 @@
 \def\titleskip{\smallskip} % The space after your name at the top
 \def\nameskip{\bigskip} % The space after your name at the top
 \def\sectionskip{\medskip} % The space after the heading section
+
+\newcommand{\ExperienceYears}[1]{{\the\numexpr \year - #1}}
