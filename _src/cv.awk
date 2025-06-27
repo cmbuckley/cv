@@ -87,6 +87,12 @@ BEGIN {
     }
 }
 
+# replace dyanmic year with liquid output
+match($0, /\\ExperienceYears\{[0-9]+\}/) {
+    experienceFrom = substr($0, RSTART + 17, RLENGTH - 18)
+    gsub(/\\ExperienceYears\{[0-9]+\}/, "{{ site.time | date: '%Y' | minus: " experienceFrom " }}")
+}
+
 # Start printing summary
 /Summary/ {
     summary = 1
