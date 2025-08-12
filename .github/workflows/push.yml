@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           # to ensure page_build workflow executes. Fallback for dependabot
           token: ${{ secrets.GH_TOKEN || github.token }}
@@ -41,7 +41,7 @@ jobs:
       company: ${{ steps.details.outputs.company }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Get current role and location
         id: details
         env:
@@ -67,7 +67,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: gh api -X PATCH user -F "bio=${{ format('{0} at {1}', needs.check-role.outputs.role, needs.check-role.outputs.company) }}"
       - name: Checkout main site repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.io
           token: ${{ secrets.GH_TOKEN }}
