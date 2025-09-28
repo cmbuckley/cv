@@ -35,10 +35,11 @@ jobs:
           add_options: --force
           file_pattern: chris-buckley-cv.pdf index.md
           skip_dirty_check: true
+          commit_author: 'buxbot[bot] <${{ vars.BUXBOT_APP_ID }}+buxbot[bot]@users.noreply.github.com>'
           commit_message: Updated GitHub Pages
           branch: gh-pages
           push_options: --force
-          
+
   check_role:
     name: Check Role
     runs-on: ubuntu-latest
@@ -63,7 +64,7 @@ jobs:
           echo "Current: ${{ steps.details.outputs.existing }}"
           echo "New: ${{ format('{0} at {1}', steps.details.outputs.role, steps.details.outputs.company) }}"
           echo "changed=${{ toJSON(steps.details.outputs.existing != format('{0} at {1}', steps.details.outputs.role, steps.details.outputs.company)) }}" >> $GITHUB_OUTPUT
-          
+
   update_role:
     name: Update Role
     runs-on: ubuntu-latest
@@ -106,6 +107,7 @@ jobs:
           token: ${{ steps.token.outputs.token }}
           path: ${{ github.workspace }}/site
           branch: role-${{ github.run_id }}
+          author: 'buxbot[bot] <${{ vars.BUXBOT_APP_ID }}+buxbot[bot]@users.noreply.github.com>'
           commit-message: Update role from CV
           title: Update role from CV
           body: 'Updates role to match CV repository. See full diff: ${{ github.event.compare }}'
