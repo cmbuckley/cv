@@ -6,11 +6,9 @@ on:
     branches: main
 
 jobs:
-  get_token:
-    name: Generate Token
+  build_assets:
+    name: Build CV Assets
     runs-on: ubuntu-latest
-    outputs:
-      token: ${{ steps.token.outputs.token || github.token }}
     steps:
       - name: Generate a token
         if: ${{ github.event_name == 'push' }}
@@ -19,17 +17,11 @@ jobs:
         with:
           app-id: ${{ vars.BUXBOT_APP_ID }}
           private-key: ${{ secrets.BUXBOT_PRIVATE_KEY }}
-          
-  build_assets:
-    name: Build CV Assets
-    runs-on: ubuntu-latest
-    needs: get_token
-    steps:
       - name: Checkout repo
         uses: actions/checkout@v5
         with:
           # to ensure page_build workflow executes. Fallback for dependabot
-          token: ${{ needs.get_token.outputs.token }}
+          token: ${{ steps.token.outputs.token || github.token }}
       - name: Install LaTeX packages
         run: |
           sudo apt-get update
@@ -76,18 +68,24 @@ jobs:
   update_role:
     name: Update Role
     runs-on: ubuntu-latest
-    needs: [get_token, check_role]
+    needs: check_role
     if: ${{ github.event_name == 'push' && fromJSON(needs.check_role.outputs.changed) }}
     steps:
       - name: Update GitHub bio
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: gh api -X PATCH user -F "bio=${{ format('{0} at {1}', needs.check_role.outputs.role, needs.check_role.outputs.company) }}"
+      - name: Generate a token
+        id: token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.BUXBOT_APP_ID }}
+          private-key: ${{ secrets.BUXBOT_PRIVATE_KEY }}
       - name: Checkout main site repo
         uses: actions/checkout@v5
         with:
           repository: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.io
-          token: ${{ needs.get_token.outputs.token }}
+          token: ${{ steps.token.outputs.token }}
           path: ${{ github.workspace }}/site
       - name: Update role
         uses: jacobtomlinson/gha-find-replace@v3
@@ -105,7 +103,7 @@ jobs:
         id: pull-request
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ needs.get_token.outputs.token }}
+          token: ${{ steps.token.outputs.token }}
           path: ${{ github.workspace }}/site
           branch: role-${{ github.run_id }}
           commit-message: Update role from CV
