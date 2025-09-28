@@ -81,6 +81,7 @@ jobs:
         with:
           app-id: ${{ vars.BUXBOT_APP_ID }}
           private-key: ${{ secrets.BUXBOT_PRIVATE_KEY }}
+          repositories: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.io
       - name: Checkout main site repo
         uses: actions/checkout@v5
         with:
