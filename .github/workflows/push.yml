@@ -6,9 +6,28 @@ on:
     branches: main
 
 jobs:
+  commit_author:
+    name: Get Commit Author
+    runs-on: ubuntu-latest
+    outputs:
+      name: ${{ steps.author.outputs.name }}
+      email: ${{ steps.author.outputs.email }}
+      name_addr: ${{ format('{0} <{1}>', steps.author.outputs.name, steps.author.outputs.email) }}
+    steps:
+      - name: Get author
+        id: author
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          name='buxbot[bot]'
+          id=$(gh api "/users/$name" -q .id)
+          echo "name=$name" >> $GITHUB_OUTPUT
+          echo "email=$id+$name@users.noreply.github.com" >> $GITHUB_OUTPUT
+
   build_assets:
     name: Build CV Assets
     runs-on: ubuntu-latest
+    needs: commit_author
     steps:
       - name: Generate a token
         if: ${{ github.event_name == 'push' }}
@@ -35,7 +54,9 @@ jobs:
           add_options: --force
           file_pattern: chris-buckley-cv.pdf index.md
           skip_dirty_check: true
-          commit_author: 'buxbot[bot] <${{ vars.BUXBOT_APP_ID }}+buxbot[bot]@users.noreply.github.com>'
+          commit_user_name: ${{ needs.commit_author.outputs.name }}
+          commit_user_email: ${{ needs.commit_author.outputs.email }}
+          commit_author: ${{ needs.commit_author.outputs.name_addr }}
           commit_message: Updated GitHub Pages
           branch: gh-pages
           push_options: --force
@@ -68,7 +89,7 @@ jobs:
   update_role:
     name: Update Role
     runs-on: ubuntu-latest
-    needs: check_role
+    needs: [commit_author, check_role]
     if: ${{ github.event_name == 'push' && fromJSON(needs.check_role.outputs.changed) }}
     steps:
       - name: Generate a token
@@ -107,7 +128,8 @@ jobs:
           token: ${{ steps.token.outputs.token }}
           path: ${{ github.workspace }}/site
           branch: role-${{ github.run_id }}
-          author: 'buxbot[bot] <${{ vars.BUXBOT_APP_ID }}+buxbot[bot]@users.noreply.github.com>'
+          author: ${{ needs.commit_author.outputs.name_addr }}
+          committer: ${{ needs.commit_author.outputs.name_addr }}
           commit-message: Update role from CV
           title: Update role from CV
           body: 'Updates role to match CV repository. See full diff: ${{ github.event.compare }}'
