@@ -35,7 +35,6 @@ jobs:
           add_options: --force
           file_pattern: chris-buckley-cv.pdf index.md
           skip_dirty_check: true
-          commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
           commit_message: Updated GitHub Pages
           branch: gh-pages
           push_options: --force
@@ -71,10 +70,6 @@ jobs:
     needs: check_role
     if: ${{ github.event_name == 'push' && fromJSON(needs.check_role.outputs.changed) }}
     steps:
-      - name: Update GitHub bio
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: gh api -X PATCH user -F "bio=${{ format('{0} at {1}', needs.check_role.outputs.role, needs.check_role.outputs.company) }}"
       - name: Generate a token
         id: token
         uses: actions/create-github-app-token@v2
@@ -82,6 +77,10 @@ jobs:
           app-id: ${{ vars.BUXBOT_APP_ID }}
           private-key: ${{ secrets.BUXBOT_PRIVATE_KEY }}
           repositories: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.io
+      - name: Update GitHub bio
+        env:
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+        run: gh api -X PATCH user -F "bio=${{ format('{0} at {1}', needs.check_role.outputs.role, needs.check_role.outputs.company) }}"
       - name: Checkout main site repo
         uses: actions/checkout@v5
         with:
