@@ -6,15 +6,30 @@ on:
     branches: main
 
 jobs:
-  build-assets:
+  get_token:
+    name: Generate Token
+    runs-on: ubuntu-latest
+    outputs:
+      token: ${{ steps.token.outputs.token || github.token }}
+    steps:
+      - name: Generate a token
+        if: ${{ github.event_name == 'push' }}
+        id: token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.BUXBOT_APP_ID }}
+          private-key: ${{ secrets.BUXBOT_PRIVATE_KEY }}
+          
+  build_assets:
     name: Build CV Assets
     runs-on: ubuntu-latest
+    needs: get_token
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
         with:
           # to ensure page_build workflow executes. Fallback for dependabot
-          token: ${{ secrets.GH_TOKEN || github.token }}
+          token: ${{ needs.get_token.outputs.token }}
       - name: Install LaTeX packages
         run: |
           sudo apt-get update
@@ -25,14 +40,15 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         uses: stefanzweifel/git-auto-commit-action@v6
         with:
-          add_options: -f
+          add_options: --force
           file_pattern: chris-buckley-cv.pdf index.md
           skip_dirty_check: true
           commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
           commit_message: Updated GitHub Pages
           branch: gh-pages
           push_options: --force
-  check-role:
+          
+  check_role:
     name: Check Role
     runs-on: ubuntu-latest
     outputs:
@@ -56,42 +72,42 @@ jobs:
           echo "Current: ${{ steps.details.outputs.existing }}"
           echo "New: ${{ format('{0} at {1}', steps.details.outputs.role, steps.details.outputs.company) }}"
           echo "changed=${{ toJSON(steps.details.outputs.existing != format('{0} at {1}', steps.details.outputs.role, steps.details.outputs.company)) }}" >> $GITHUB_OUTPUT
-  update-role:
+          
+  update_role:
     name: Update Role
     runs-on: ubuntu-latest
-    needs: check-role
-    if: ${{ github.event_name == 'push' && fromJSON(needs.check-role.outputs.changed) }}
+    needs: [get_token, check_role]
+    if: ${{ github.event_name == 'push' && fromJSON(needs.check_role.outputs.changed) }}
     steps:
       - name: Update GitHub bio
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: gh api -X PATCH user -F "bio=${{ format('{0} at {1}', needs.check-role.outputs.role, needs.check-role.outputs.company) }}"
+        run: gh api -X PATCH user -F "bio=${{ format('{0} at {1}', needs.check_role.outputs.role, needs.check_role.outputs.company) }}"
       - name: Checkout main site repo
         uses: actions/checkout@v5
         with:
           repository: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.io
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ needs.get_token.outputs.token }}
           path: ${{ github.workspace }}/site
       - name: Update role
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: 'role:.*'
-          replace: 'role: ${{ needs.check-role.outputs.role }}'
+          replace: 'role: ${{ needs.check_role.outputs.role }}'
           include: site/_config.yml
       - name: Update company
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: 'company:.*'
-          replace: 'company: ${{ needs.check-role.outputs.company }}'
+          replace: 'company: ${{ needs.check_role.outputs.company }}'
           include: site/_config.yml
       - name: Create Pull Request
         id: pull-request
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ needs.get_token.outputs.token }}
           path: ${{ github.workspace }}/site
           branch: role-${{ github.run_id }}
-          author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
           commit-message: Update role from CV
           title: Update role from CV
           body: 'Updates role to match CV repository. See full diff: ${{ github.event.compare }}'
