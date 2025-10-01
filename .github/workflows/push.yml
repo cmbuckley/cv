@@ -101,7 +101,7 @@ jobs:
           repositories: ${{ github.repository_owner }}.github.io
       - name: Update GitHub bio
         env:
-          GH_TOKEN: ${{ steps.token.outputs.token }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: gh api -X PATCH user -F "bio=${{ format('{0} at {1}', needs.check_role.outputs.role, needs.check_role.outputs.company) }}"
       - name: Checkout main site repo
         uses: actions/checkout@v5
