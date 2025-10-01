@@ -98,7 +98,7 @@ jobs:
         with:
           app-id: ${{ vars.BUXBOT_APP_ID }}
           private-key: ${{ secrets.BUXBOT_PRIVATE_KEY }}
-          repositories: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.io
+          repositories: ${{ github.repository_owner }}.github.io
       - name: Update GitHub bio
         env:
           GH_TOKEN: ${{ steps.token.outputs.token }}
