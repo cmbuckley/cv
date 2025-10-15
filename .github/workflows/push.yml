@@ -54,6 +54,7 @@ jobs:
           add_options: --force
           file_pattern: chris-buckley-cv.pdf index.md
           skip_dirty_check: true
+          skip_checkout: true
           commit_user_name: ${{ needs.commit_author.outputs.name }}
           commit_user_email: ${{ needs.commit_author.outputs.email }}
           commit_author: ${{ needs.commit_author.outputs.name_addr }}
