@@ -124,7 +124,7 @@ jobs:
           include: site/_config.yml
       - name: Create Pull Request
         id: pull-request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ steps.token.outputs.token }}
           path: ${{ github.workspace }}/site
