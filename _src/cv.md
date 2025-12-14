@@ -2,7 +2,7 @@
 layout: page
 title: Curriculum Vitae
 description:
-og_type: website
+og_type: profile
 class: cv
 style:
   - /assets/cv.css
