@@ -78,14 +78,19 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           echo "existing=$(gh api users/${{ github.repository_owner }} -q .bio)" >> $GITHUB_OUTPUT
-          echo "role=$(awk -v col=4 -f _src/role.awk _src/cv.tex)" >> $GITHUB_OUTPUT
-          echo "company=$(awk -v col=8 -f _src/role.awk _src/cv.tex)" >> $GITHUB_OUTPUT
+          echo "role=$(awk -v col=role -f _src/role.awk _src/cv.tex)" >> $GITHUB_OUTPUT
+          echo "company=$(awk -v col=company -f _src/role.awk _src/cv.tex)" >> $GITHUB_OUTPUT
       - name: Compare roles
         id: check
         run: |
           echo "Current: ${{ steps.details.outputs.existing }}"
-          echo "New: ${{ format('{0} at {1}', steps.details.outputs.role, steps.details.outputs.company) }}"
-          echo "changed=${{ toJSON(steps.details.outputs.existing != format('{0} at {1}', steps.details.outputs.role, steps.details.outputs.company)) }}" >> $GITHUB_OUTPUT
+          if [ -n "${{ steps.details.outputs.role }}" ]; then
+            echo "New: ${{ format('{0} at {1}', steps.details.outputs.role, steps.details.outputs.company) }}"
+            echo "changed=${{ toJSON(steps.details.outputs.existing != format('{0} at {1}', steps.details.outputs.role, steps.details.outputs.company)) }}" >> $GITHUB_OUTPUT
+          else
+            echo "No current role, not updating bio"
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
 
   update_role:
     name: Update Role
