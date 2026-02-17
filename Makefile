@@ -2,13 +2,14 @@ SHELL=/bin/bash
 SRC = _src
 CV_TEX := $(SRC)/cv.tex
 CV_MD := index.md
+SPELL := $(shell command -v aspell 2> /dev/null)
 
 .PHONY: pdf md clean spell check
 
 default: pdf md
 
 check:
-ifeq (, $(shell which aspell))
+ifndef SPELL
 	$(error "Spell check requires aspell")
 endif
 
