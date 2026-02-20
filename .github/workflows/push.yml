@@ -36,17 +36,24 @@ jobs:
         with:
           app-id: ${{ vars.BUXBOT_APP_ID }}
           private-key: ${{ secrets.BUXBOT_PRIVATE_KEY }}
+
       - name: Checkout repo
         uses: actions/checkout@v6
         with:
           # to ensure page_build workflow executes. Fallback for dependabot
           token: ${{ steps.token.outputs.token || github.token }}
+
       - name: Install LaTeX packages
         run: |
           sudo apt-get update
-          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra
+          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra aspell aspell-en
+
       - name: Build assets
         run: make
+
+      - name: Spell check
+        run: make spell
+
       - name: Commit assets
         if: ${{ github.event_name == 'push' }}
         uses: stefanzweifel/git-auto-commit-action@v7
@@ -72,6 +79,7 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v6
+
       - name: Get current role and location
         id: details
         env:
@@ -80,6 +88,7 @@ jobs:
           echo "existing=$(gh api users/${{ github.repository_owner }} -q .bio)" >> $GITHUB_OUTPUT
           echo "role=$(awk -v col=role -f _src/role.awk _src/cv.tex)" >> $GITHUB_OUTPUT
           echo "company=$(awk -v col=company -f _src/role.awk _src/cv.tex)" >> $GITHUB_OUTPUT
+
       - name: Compare roles
         id: check
         run: |
@@ -105,28 +114,33 @@ jobs:
           app-id: ${{ vars.BUXBOT_APP_ID }}
           private-key: ${{ secrets.BUXBOT_PRIVATE_KEY }}
           repositories: ${{ github.repository_owner }}.github.io
+
       - name: Update GitHub bio
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: gh api -X PATCH user -F "bio=${{ format('{0} at {1}', needs.check_role.outputs.role, needs.check_role.outputs.company) }}"
+
       - name: Checkout main site repo
         uses: actions/checkout@v6
         with:
           repository: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.io
           token: ${{ steps.token.outputs.token }}
           path: ${{ github.workspace }}/site
+
       - name: Update role
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: 'role:.*'
           replace: 'role: ${{ needs.check_role.outputs.role }}'
           include: site/_config.yml
+
       - name: Update company
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: 'company:.*'
           replace: 'company: ${{ needs.check_role.outputs.company }}'
           include: site/_config.yml
+
       - name: Create Pull Request
         id: pull-request
         uses: peter-evans/create-pull-request@v8
@@ -139,6 +153,7 @@ jobs:
           commit-message: Update role from CV
           title: Update role from CV
           body: 'Updates role to match CV repository. See full diff: ${{ github.event.compare }}'
+
       - name: Check Pull Request
         if: steps.pull-request.outputs.pull-request-operation == ''
         uses: actions/github-script@v8

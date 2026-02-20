@@ -29,5 +29,5 @@ md: $(CV_TEX)
 clean:
 	rm -rf $(CV_MD) cv.* $(SRC)/cv.{aux,log,out,toc}
 
-spell: check md
-	aspell list < $(CV_MD) | LANG=C sort -u
+spell: check $(CV_TEX)
+	aspell --conf=./$(SRC)/aspell/aspell.conf list < $(CV_TEX) | LANG=C sort -u | (! grep --color=never .)
