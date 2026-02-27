@@ -43,8 +43,8 @@ md: $(CV_TEX)
 	cp $(SRC)/cv.md $(CV_MD)
 	sed -i'.bak' "s/description:.*$$/&$(shell awk -f $(SRC)/summary.awk $(CV_TEX))/" $(CV_MD)
 	awk -f $(SRC)/cv.awk $(CV_TEX) >> $(CV_MD)
-	while IFS=: read interest link; \
-		do sed -i'.bak' "s~$$interest~[&]($${link/ /})~" $(CV_MD); \
+	while IFS=: read text link; \
+		do sed -i'.bak' "s~$$text~[&]({% include mainurl.html %}$${link/ /})~" $(CV_MD); \
 	done < _data/links.yml
 	rm $(CV_MD).bak
 
