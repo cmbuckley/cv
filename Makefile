@@ -33,6 +33,7 @@ texlive:
 "tlpdbopt_install_srcfiles 0" \
 	> ./texlive.profile
 	./texlive-installer/install-tl --profile ./texlive.profile
+	tlmgr install parskip titlesec enumitem
 
 pdf: $(CV_TEX)
 	pdflatex -output-directory $(SRC) $(CV_TEX)
