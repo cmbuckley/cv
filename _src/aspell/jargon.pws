@@ -1,10 +1,11 @@
-personal_ws-1.1 en 22
+personal_ws-1.1 en 28
 ActiveMQ
 BYOD
 CTPO
 Cyber
 DevOps
 HD
+IoT
 Kanban
 Kubernetes
 NHS
@@ -14,11 +15,15 @@ SDLC
 SMS
 SRE
 SaaS
+Symfony
 Terraform
+TypeScript
 XP
 Zend
 frontend
 iGaming
+js
+microservices
 roadmap
 scalable
 workstreams
