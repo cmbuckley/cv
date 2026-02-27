@@ -12,7 +12,7 @@ BEGIN {
 
 /begin.document/ {
     print ""
-    print "[Download as PDF](/cv/chris-buckley-cv.pdf){:rel=\"alternate\" type=\"text/pdf\"}"
+    print "[Download as PDF]({{ 'chris-buckley-cv.pdf' | relative_url }}){:rel=\"alternate\" type=\"text/pdf\"}"
     print "{:.download}"
 }
 
