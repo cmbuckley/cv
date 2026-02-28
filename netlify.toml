@@ -1,2 +1,5 @@
 [build]
-command = "make md && bundle exec jekyll build --config _config.yml,_staging.yml"
+command = "make texlive md pdf && bundle exec jekyll build --config _config.yml,_staging.yml"
+
+  [build.environment]
+  JEKYLL_ENV = "staging"

@@ -8,6 +8,8 @@ baseurl: "/cv"
 repository: cmbuckley/cv
 remote_theme: "cmbuckley/cmbuckley.github.io"
 
+nav_current: cv
+
 markdown: kramdown
 highlighter: rouge
 
