@@ -1,5 +1,5 @@
 [build]
-command = "make texlive md pdf && bundle exec jekyll build --config _config.yml,_staging.yml"
+command = "make netlify"
 
   [build.environment]
   JEKYLL_ENV = "staging"

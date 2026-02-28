@@ -44,10 +44,15 @@ md: $(CV_TEX)
 	cp $(SRC)/cv.md $(CV_MD)
 	sed -i'.bak' "s/description:.*$$/&$(shell awk -f $(SRC)/summary.awk $(CV_TEX))/" $(CV_MD)
 	awk -f $(SRC)/cv.awk $(CV_TEX) >> $(CV_MD)
-	while IFS=: read text link; \
-		do sed -i'.bak' "s~$$text~[&]({% include mainurl.html %}$${link/ /})~" $(CV_MD); \
+	while IFS=: read text link; do \
+		sed -i'.bak' "s~$$text~[&]({% include mainurl.html %}$${link/ /})~" $(CV_MD); \
 	done < _data/links.yml
 	rm $(CV_MD).bak
+
+netlify: texlive md pdf
+	@sub=$$(sed -E 's#https://(.+)--.*#\1#' <<< "$$DEPLOY_PRIME_URL"); \
+	echo "url: https://cv-$${sub/deploy-preview/staging}.cmbuckley.co.uk" >> _staging.yml
+	bundle exec jekyll build --config _config.yml,_staging.yml
 
 clean:
 	rm -rf $(CV_MD) cv.* $(SRC)/cv.{aux,log,out,toc}
