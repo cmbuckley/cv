@@ -19,9 +19,10 @@ ifndef SPELL
 endif
 
 texlive:
-	mkdir -p $(CACHE_FOLDER) texlive-installer $(TEXLIVEDIR)
+	mkdir -p $(CACHE_FOLDER) _texlive-installer $(TEXLIVEDIR)
 	wget -q http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-	tar -xf install-tl-unx.tar.gz -C ./texlive-installer --strip 1
+	tar -xf install-tl-unx.tar.gz -C ./_texlive-installer --strip 1
+	rm install-tl-unx.tar.gz
 	printf '%s\n' \
 "selected_scheme scheme-basic" \
 "TEXDIR $(TEXLIVEDIR)" \
@@ -31,8 +32,8 @@ texlive:
 "binary_x86_64-linux 1" \
 "tlpdbopt_install_docfiles 0" \
 "tlpdbopt_install_srcfiles 0" \
-	> ./texlive.profile
-	./texlive-installer/install-tl --profile ./texlive.profile
+	> _texlive.profile
+	_texlive-installer/install-tl --profile _texlive.profile
 	tlmgr install parskip titlesec enumitem
 
 pdf: $(CV_TEX)
