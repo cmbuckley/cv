@@ -18,6 +18,7 @@
 \RequirePackage[pdfusetitle]{hyperref}
 \usepackage{bookmark}
 \usepackage{enumitem} % Control layout of lists
+\usepackage{multicol}
 
 \pagestyle{empty} % Suppress page numbers
 
