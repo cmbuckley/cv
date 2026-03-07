@@ -27,5 +27,6 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - Makefile
+  - netlify.toml
   - README.md
   - vendor
