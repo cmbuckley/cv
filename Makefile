@@ -56,6 +56,7 @@ netlify: texlive md pdf
 
 clean:
 	rm -rf $(CV_MD) cv.* $(SRC)/cv.{aux,log,out,toc}
+	rm -rf _texlive-installer $(TEXLIVEDIR) _texlive.profile
 
 spell: check $(CV_TEX)
 	aspell --conf=./$(SRC)/aspell/aspell.conf list < $(CV_TEX) | LANG=C sort -u | (! grep --color=never .)
