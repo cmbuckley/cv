@@ -50,8 +50,8 @@ md: $(CV_TEX)
 	rm $(CV_MD).bak
 
 netlify: texlive md pdf
-	@sub=$$(sed -E 's#https://(.+)--.*#\1#' <<< "$$DEPLOY_PRIME_URL"); \
-	echo "url: https://cv-$${sub/deploy-preview/staging}.cmbuckley.co.uk" >> _staging.yml
+	sub=$$(sed -E 's#https://(.+)--.*#\1#;s/deploy-preview|^main$$/staging/' <<< "$$DEPLOY_PRIME_URL"); \
+	echo "url: https://cv-$${sub}.cmbuckley.co.uk" >> _staging.yml
 	bundle exec jekyll build --config _config.yml,_staging.yml
 
 clean:
