@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Curriculum Vitae
+source_path: _src/cv.tex
 description:
 og_type: profile
 class: cv
