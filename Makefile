@@ -2,7 +2,7 @@ SHELL=/bin/bash
 SRC = _src
 CV_TEX := $(SRC)/cv.tex
 CV_MD := index.md
-SPELL := $(shell command -v aspell 2> /dev/null)
+SPELL := $(shell command -v cspell 2> /dev/null)
 
 CACHE_FOLDER := /opt/build/cache
 TEXLIVEDIR := $(CACHE_FOLDER)/texlive
@@ -15,7 +15,7 @@ default: pdf md
 
 check:
 ifndef SPELL
-	$(error "Spell check requires aspell")
+	$(error "Spell check requires cspell")
 endif
 
 texlive:
@@ -59,4 +59,4 @@ clean:
 	rm -rf _texlive-installer $(TEXLIVEDIR) _texlive.profile
 
 spell: check $(CV_TEX)
-	aspell --conf=./$(SRC)/aspell/aspell.conf list < $(CV_TEX) | LANG=C sort -u | (! grep --color=never .)
+	cspell -c $(SRC)/cspell/cspell.yml $(CV_TEX)
