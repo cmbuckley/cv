@@ -88,7 +88,7 @@ jobs:
         id: token
         uses: actions/create-github-app-token@v3
         with:
-          app-id: ${{ vars.BUXBOT_APP_ID }}
+          client-id: ${{ vars.BUXBOT_CLIENT_ID }}
           private-key: ${{ secrets.BUXBOT_PRIVATE_KEY }}
           repositories: ${{ github.repository_owner }}.github.io
 
