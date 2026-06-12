@@ -42,7 +42,8 @@ jobs:
       deploy_enabled: ${{ contains(fromJSON('["push", "repository_dispatch"]'), github.event_name) }}
       custom_commands: |
         sudo apt-get update
-        sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra aspell aspell-en
+        sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra
+        npm install -g cspell
         make
         make spell
 
