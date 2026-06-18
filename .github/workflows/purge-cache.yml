@@ -6,8 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Purge cache
-      uses: jakejarvis/cloudflare-purge-action@v0.3.0
-      env:
-        CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
-        CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
-        PURGE_URLS: '["https://cmbuckley.co.uk/cv/","https://cmbuckley.co.uk/cv/chris-buckley-cv.pdf"]'
+      uses: nathanvaughn/actions-cloudflare-purge@v4.0.0
+      with:
+        cf_zone: ${{ secrets.CLOUDFLARE_ZONE }}
+        cf_auth: ${{ secrets.CLOUDFLARE_TOKEN }}
+        files: |
+          https://cmbuckley.co.uk/cv/chris-buckley-cv.pdf
