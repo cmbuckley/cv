@@ -56,7 +56,7 @@ jobs:
       company: ${{ steps.details.outputs.company }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Get current role and location
         id: details
@@ -99,7 +99,7 @@ jobs:
         run: gh api -X PATCH user -F "bio=${{ format('{0} at {1}', needs.check_role.outputs.role, needs.check_role.outputs.company) }}"
 
       - name: Checkout main site repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: ${{ github.repository_owner }}/${{ github.repository_owner }}.github.io
           token: ${{ steps.token.outputs.token }}
